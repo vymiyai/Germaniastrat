@@ -5,6 +5,12 @@
     	<title>Germaniastrat Project</title>
     	
 		<script src='lib/jquery-2.1.1.min.js'></script>
+		
+		<script src='src/classes/Battlegroup.js'></script>
+		<script src='src/classes/Card.js'></script>
+		<script src='src/classes/Unit.js'></script>
+		
+		<script src='data/cards.js'></script>
 
       	<!-- configuration file -->
       	<script src='src/units.js'></script>
@@ -12,6 +18,12 @@
     </head>
     <body>
       	<script>
+      	    var card = new Card( RIFLEMAN_UNIT );
+      	    var unit = new Unit( card, { condition:100, experience: 50, cargo:{ food:0, ammo:0, fuel:0 } } )
+      	    var battlegroup = new Battlegroup( { name:"56th Tank Hunters", units:[] } );
+      	    
+      	    alert( JSON.stringify( battlegroup.getCargo() ) );
+      	    alert( JSON.stringify( battlegroup.getAttributes() ) );
       	</script>
     </body>
 </html>

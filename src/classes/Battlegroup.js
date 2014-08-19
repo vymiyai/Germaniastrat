@@ -3,6 +3,11 @@
 // class that represents the emergent behavior of the component units. A dynamic instance of a set of Unit Card.
 var Battlegroup = function( battlegroupInstance )
 {
+    // constants.
+    
+    // maximum number of units in a batlegroup.
+    this.MAXIMUM_LENGTH = 5;
+    
     // the battlegroup name.
     this.name           = battlegroupInstance.name;
     
@@ -67,6 +72,26 @@ var Battlegroup = function( battlegroupInstance )
         }
         
         return result;
+    };
+    
+    // adds a new unit if the maximum number of units in a battlegroup has not been reached, returns the success condition.
+    this.addUnit = function( unit )
+    {
+        if( this.units.length < this.MAXIMUM_LENGTH )
+        {
+            this.units.push( unit );
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    };
+    
+    // removes a unit from a battlegroup's unit slot and returns it.
+    this.removeUnit = function( position )
+    {
+        return this.units.splice( position, 1 );
     };
     
 };

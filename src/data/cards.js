@@ -10,7 +10,7 @@
 // manpower
 // manufacturing power
 
-var cards = {};
+var CARDS = {};
 
 var RIFLEMAN_UNIT = {   name:"Rifleman Unit", 
                         type:"infantry", 
