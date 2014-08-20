@@ -1,7 +1,8 @@
 "use strict";
 
 // class that represents the emergent behavior of the component units. A dynamic instance of a set of Unit Card.
-var Battlegroup = function( battlegroupInstance )
+// the true purpose of this class is to aggregate attributes of its composing Units to be used in damage and attrition calculations.
+var Battlegroup = function()
 {
     // constants.
     
@@ -9,13 +10,22 @@ var Battlegroup = function( battlegroupInstance )
     this.MAXIMUM_LENGTH = 5;
     
     // the battlegroup name.
-    this.name           = battlegroupInstance.name;
+    this.name           = "Battlegroup";
     
     // the composing units.
-    this.units          = battlegroupInstance.units;
+    this.units          = [];
 
-    // the true purpose of this class is to aggregate attributes of its composing Units to be used in damage and attrition calculations.
+   
+   
+    // initializes a specific instance of a battlegroup by an instance.
+    this.init = function( battlegroupInstance )
+    {
+        this.name       = battlegroupInstance.name;
+        this.units      = battlegroupInstance.units;
+    };
+   
 
+    // returns the name of this battlegroup.
     this.getName = function()
     {
         return this.name;
@@ -47,9 +57,9 @@ var Battlegroup = function( battlegroupInstance )
             var unit    = this.units[ unitIndex ];
             var cargo   = unit.getCargo();
             
-            result.food =+ cargo.food;
-            result.ammo =+ cargo.ammo;
-            result.fuel =+ cargo.fuel;
+            result.food = result.food + cargo.food;
+            result.ammo = result.ammo + cargo.ammo;
+            result.fuel = result.fuel + cargo.fuel;
         }
         
         return result;
@@ -58,17 +68,17 @@ var Battlegroup = function( battlegroupInstance )
     // sums all attrbiutes of all units and return the accumulated attributes of the whole battlegroup.
     this.getAttributes = function()
     {
-        var result = { apDam:0, atDam:0, aaDam:0, mobility:0,  };
+        var result = { apDam:0, atDam:0, aaDam:0, mobility:0 };
         
         for( var unitIndex in this.units )
         {
             var unit        = this.units[ unitIndex ];
             var attributes  = unit.getAttributes();
             
-            result.apDam    =+ attributes.apDam;
-            result.atDam    =+ attributes.atDam;
-            result.aaDam    =+ attributes.aaDam;
-            result.mobility =+ attributes.mobility;
+            result.apDam    = result.apDam + attributes.apDam;
+            result.atDam    = result.atDam + attributes.atDam;
+            result.aaDam    = result.aaDam + attributes.aaDam;
+            result.mobility = result.mobility + attributes.mobility;
         }
         
         return result;

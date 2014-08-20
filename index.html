@@ -2,27 +2,43 @@
 <html lang="en">
     <head>
       	<meta charset="UTF-8" />
+      	
     	<title>Germaniastrat Project</title>
     	
-		<script src='lib/jquery-2.1.1.min.js'></script>
+		<script src='src/lib/jquery-2.1.1.min.js'></script>
 		
 		<script src='src/classes/Battlegroup.js'></script>
 		<script src='src/classes/Card.js'></script>
 		<script src='src/classes/Unit.js'></script>
 		
-		<script src='data/cards.js'></script>
-
-      	<!-- configuration file -->
-      	<script src='src/units.js'></script>
+		<script src='src/data/cards.js'></script>
       	
     </head>
     <body>
       	<script>
       	    var card = new Card( RIFLEMAN_UNIT );
-      	    var unit = new Unit( card, { condition:100, experience: 50, cargo:{ food:0, ammo:0, fuel:0 } } )
-      	    var battlegroup = new Battlegroup( { name:"56th Tank Hunters", units:[] } );
+      	    var unit1 = new Unit( card );
+      	    unit1.init( { condition:100, experience: 50, cargo:{ food:0, ammo:0, fuel:0 } } );
+      	    
+      	    var unit2 = new Unit( card );
+      	    unit2.init( { condition:100, experience: 50, cargo:{ food:0, ammo:0, fuel:0 } } );
+      	    
+      	    var unit3 = new Unit( card );
+      	    unit3.init( { condition:100, experience: 50, cargo:{ food:0, ammo:0, fuel:0 } } );
+      	    
+      	    var battlegroup = new Battlegroup();
+      	    battlegroup.init( { name:"56th Tank Hunters", units:[] } );
       	    
       	    alert( JSON.stringify( battlegroup.getCargo() ) );
+      	    alert( JSON.stringify( battlegroup.getAttributes() ) );
+      	    
+      	    battlegroup.addUnit( unit1 );
+      	    battlegroup.addUnit( unit2 );
+      	    battlegroup.addUnit( unit3 );
+      	    
+      	    alert( battlegroup.units.length );
+      	    
+            alert( JSON.stringify( battlegroup.getCargo() ) );
       	    alert( JSON.stringify( battlegroup.getAttributes() ) );
       	</script>
     </body>

@@ -1,29 +1,33 @@
 "use strict";
 
 // class that represents a unit in Battlegroups. A dynamic instance of a Unit Card.
-var Unit = function( card, unitInstance )
+var Unit = function( card )
 {
+    // constants.
+    this.DEFAULT_CONDITION  = 100;
+    this.DEFAULT_EXPERIENCE = 0;
+    this.DEFAULT_CARGO      = { food:0, ammo:0, fuel:0 };
+    
     // the static values of this card.
     this.card           = card;
 
     // the dynamic values of this card.
     
     // the "life points" of a unit specified in a percentage of performance.
-    this.condition      = unitInstance.condition;
+    this.condition      = this.DEFAULT_CONDITION;
     
     // Units can be upgraded once they reach a certain amount of experience.
-    this.experience     = unitInstance.experience;
+    this.experience     = this.DEFAULT_EXPERIENCE;
     
     // the amount of resources being carried by this unit.
-    // possibly a hashmap.
-    this.cargo          = unitInstance.cargo;
+    this.cargo          = this.DEFAULT_CARGO;
     
-    // initializes a fresh instance of this unit.
-    this.init = function()
+    // initializes a unit instance by an instance (probably, a JSON object).
+    this.init = function( unitInstance )
     {
-        this.condition  = 100;
-        this.experience = 0;
-        this.cargo      = { food:0, ammo:0, fuel:0 };
+        this.condition      = unitInstance.condition;
+        this.experience     = unitInstance.experience;
+        this.cargo          = unitInstance.cargo;
     };
     
     // getters that may be implemented in the future.
