@@ -36,4 +36,10 @@ var Territory = function( type )
         this.resources = { food: 0, ammo: 0, fuel: 0 };
     };
     
+    // returns the relevant that will be shown in he user interace.
+    this.getStatus = function()
+    {
+        return { resources:this.resources };
+    };
+    
 };
