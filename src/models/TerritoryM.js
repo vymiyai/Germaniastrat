@@ -1,37 +1,42 @@
 "use strict";
 
 // class that represents the data part of a territory to be presented in a map.
-var TerritoryM = function( type )
+var TerritoryM = function( name )
 {
-    // initial values.
-    this.attributes = TERRITORY_TYPES[ type ];
+    // static values.
+    this.name           = name;
+    this.attributes     = TERRITORIES[ name ];
+    this.typeAttributes = TERRITORY_TYPES[ this.attributes.type ];
+    
+    // dynamic values.
     this.timestamp  = new Date().getTime();
     this.resources  = { food: 0, ammo: 0, fuel: 0 };
     
     // initializes this instance with an instance description.
-    this.init = function( territoryInstance )
+    this.init = function( territoryContext )
     {
-        this.timestamp = territoryInstance.timestamp;
-        this.resources = territoryInstance.resouces;
+        this.timestamp = territoryContext.timestamp;
+        this.resources = territoryContext.resouces;
     };
     
     // updates the timestamp and resources in case they are changed.
     // this method should be called everytime an interaction is made or regularly from time to time.
-    this.update = function()
+    this.update = function( timestamp )
     {
         // retrieve last timestamp.
         var lastTimestamp = this.timestamp;
         
         // update the current timestamp.
-        this.timestamp = new Date().getTime();
+        this.timestamp = timestamp;
         
         // calculate the time passed since the last timestamp.
         var timePassed = this.timestamp - lastTimestamp;
         
         // calculate the amount of each resources that was produced or consumed during this time period.
-        
+        // TODO
         
         // update battlegroups, attrition and whatmore.
+        // TODO
         
         // update resources.
         this.resources = { food: 0, ammo: 0, fuel: 0 };
@@ -41,6 +46,12 @@ var TerritoryM = function( type )
     this.getStatus = function()
     {
         return { resources:this.resources };
+    };
+    
+    // returns the static attributes of this territory.
+    this.getAttributes = function()
+    {
+        return this.attributes;
     };
     
 };

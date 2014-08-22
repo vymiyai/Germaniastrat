@@ -1,8 +1,17 @@
 "use strict";
 
-var World = function( worldState, stage )
+// the container for virtually anything realted to the strategic/management part of the application.
+var World = function( context, stage )
 {
     this.stage = stage;
     
-    // set up the world as it is in a save file or whatever.
+    this.model  = new WorldM( context );
+    this.ui     = new UI( this.model, this.stage );
+    this.view   = new WorldV( this.model, this.stage, this.ui );            // associated models->handlers are already included in UI. 
+    
+    this.update = function()
+    {
+        this.stage.update();
+    };
+    
 };

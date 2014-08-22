@@ -7,17 +7,24 @@
     	
 		<script src='src/lib/jquery-2.1.1.min.js'></script>
         <script src='src/lib/createjs-2013.12.12.min.js'></script>
+        
+		<script src='src/data/cards.js'></script>
+		<script src='src/data/territories.js'></script>
+		<script src='src/data/territoryTypes.js'></script>
 		
 		<script src='src/models/Battlegroup.js'></script>
 		<script src='src/models/Card.js'></script>
 		<script src='src/models/Unit.js'></script>
-		<script src='src/models/Territory.js'></script>
+		<script src='src/models/WorldM.js'></script>
+		<script src='src/models/TerritoryM.js'></script>
 		
-		<script src='src/views/World.js'></script>
+		<script src='src/views/WorldV.js'></script>
+		<script src='src/views/TerritoryV.js'></script>
 		
-		<script src='src/data/cards.js'></script>
-		<script src='src/data/territories.js'></script>
-		<script src='src/data/territoryTypes.js'></script>
+		<script src='src/manipulators/World.js'></script>
+		<script src='src/manipulators/Germania.js'></script>
+		
+        <script src='src/ui/UI.js'></script>
       	
     </head>
     <body onLoad="init();">
@@ -46,46 +53,23 @@
             
             alert( JSON.stringify( battlegroup.getCargo() ) );
             alert( JSON.stringify( battlegroup.getAttributes() ) );
-            
-            
-            
-            // new ( graphical_representation, model( static_data, dynamic_data ), manipulator )
-            
-            
-            
-            
+
+
+
+
+
             var world;
-    		
-    		var init = function() 
-    		{
-    			var stage = new createjs.Stage( "world" );
-    			
-    			// to get onMouseOver & onMouseOut events, we need to enable them on the stage:
-    			stage.enableMouseOver();
-    			
-    			var output = new createjs.Text("Test press, click, doubleclick, mouseover, and mouseout", "14px Arial");
-    			output.x = output.y = 10;
-    			stage.addChild(output);
-    			
-    			world = new World( stage, output );
-    			
-                //var area1Instance = { timestamp: new Date().getTime(), resouces:{ food: 0, ammo: 0, fuel: 0 } };
-                var area1 = world.Territory( TERRITORIES.AREA_1 );
-                world.addTerritory( area1 );
+            
+            var init = function() 
+            {
+                var stage = new createjs.Stage( "world" );
                 
-                //var territory = new Territory( worldTerritory.type );
-        			
-                var area2 = world.Territory( TERRITORIES.AREA_2 );
-                world.addTerritory( area2 );
-        			
-                var area3 = world.Territory( TERRITORIES.AREA_3 );
-                world.addTerritory( area3 );
-        			
-                var area4 = world.Territory( TERRITORIES.AREA_4 );
-                world.addTerritory( area4 );
-        		
+                // to get onMouseOver & onMouseOut events, we need to enable them on the stage:
+                stage.enableMouseOver();
+                
+                var world = new World( null, stage );
                 world.update();
-    		};
+            };
 		
       	</script>
 

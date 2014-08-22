@@ -1,47 +1,39 @@
 "use strict";
 
 // the graphical representation of the map.
-var WorldV = function( stage, output )
+var WorldV = function( worldModel, stage, ui )
 {
-    this.stage = stage;
-    this.output = output;
+    this.stage          = stage;
+    this.ui             = ui;
+    this.territories    = {};
     
-    // instantiates a new territory's graphical representation based on its static attributes.
-    this.Territory = function( worldTerritory )
+    var territoryKey;
+
+    var models = worldModel.getTerritories();
+    for( territoryKey in models )
     {
-        var handler = function handleMouseEvent( evt ) 
-        {
-            output.text = "evt.target: "+evt.target+", evt.type: "+evt.type;
-            
-            // to save CPU, we're only updating when we need to, instead of on a tick:1
-            stage.update();
-        };
-        
-        // use this to define some difference between world territory types.
-        worldTerritory.type;
-        
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill( "red" ).drawRect(-50, -50, 100, 100);
-        shape.x = worldTerritory.x;
-        shape.y = worldTerritory.y;
-        shape.name = worldTerritory.name;
-        
-        shape.on("click", handler);
-        shape.on("dblclick", handler);
-        shape.on("mouseover", handler);
-        shape.on("mouseout", handler);
-        
-        return shape;
+        var territoryM   = models[ territoryKey ];
+        this.territories[ territoryM.name ] = new TerritoryV().init( territoryM );
+    }
+
+    this.addTerritory = function( territoryV )
+    {
+        this.stage.addChild( territoryV );
     };
     
-    this.addTerritory = function( worldTerritory )
+    var views = this.territories;
+    for( territoryKey in views )
     {
-        this.stage.addChild( worldTerritory );
-    };
-    
-    this.update = function()
-    {
-        this.stage.update();
-    };
+        var territoryModel  = models[ territoryKey ];
+        var territoryView   = views[ territoryKey ];
+        var handler         = this.ui.eventHandlers[ territoryKey ];
+        
+        territoryView.on("click", handler, null, false, { model:territoryModel, view:territoryView, ui:this.ui.ui, stage:this.stage } );
+        territoryView.on("dblclick", handler, null, false, { model:territoryModel, view:territoryView, ui:this.ui.ui, stage:this.stage } );
+        territoryView.on("mouseover", handler, null, false, { model:territoryModel, view:territoryView, ui:this.ui.ui, stage:this.stage } );
+        territoryView.on("mouseout", handler, null, false, { model:territoryModel, view:territoryView, ui:this.ui.ui, stage:this.stage } );
+        
+        this.addTerritory( territoryView );
+    }
     
 };

@@ -1,18 +1,16 @@
 "use strict";
 
-var TerritoryV = function( territoryAttributes )
+var TerritoryV = function()
+{
+    this.name = "territory";
+    
+    this.init = function( territoryM )
     {
-        /*
-        var handler = function handleMouseEvent( evt ) 
-        {
-            output.text = "evt.target: "+evt.target+", evt.type: "+evt.type;
-            
-            // to save CPU, we're only updating when we need to, instead of on a tick:1
-            stage.update();
-        };
-        */
+        // set the name of this territory.
+        this.name   = territoryM.name;
         
         // use this to define some difference between world territory types.
+        var territoryAttributes = territoryM.getAttributes();
         territoryAttributes.type;
         
         var shape = new createjs.Shape();
@@ -21,11 +19,7 @@ var TerritoryV = function( territoryAttributes )
         shape.y = territoryAttributes.y;
         shape.name = territoryAttributes.name;
         
-        /*
-        shape.on("click", handler);
-        shape.on("dblclick", handler);
-        shape.on("mouseover", handler);
-        shape.on("mouseout", handler);
-        */
         return shape;
     };
+    
+};
