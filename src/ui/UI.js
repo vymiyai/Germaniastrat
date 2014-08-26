@@ -4,7 +4,21 @@
 var UI = function( worldModel, stage )
 {
     this.stage = stage;
+    
+    // a shape.
+    var button = new WorldButton( 200, 100 );
+    button.setX( this.stage.canvas.width/2 );
+    //button.setY( this.stage.canvas.height/2 );
+    button.setY( this.stage.canvas.height + 100 );
+    button.getShape().on("click", function()
+    { 
+        alert( "LABEL" );
+    }, null, false );
+    this.stage.addChild( button.getShape() );
+    
+    // text box.
     this.ui = new createjs.Text("Test press, click, doubleclick, mouseover, and mouseout", "14px Arial");
+    this.ui.color = "DimGray";
     this.ui.x = 10;
     this.ui.y = 10;
     this.stage.addChild( this.ui );
@@ -29,9 +43,15 @@ var UI = function( worldModel, stage )
         
     }
     
-    this.getUI = function()
-    {
-        return this.ui;
-    };
-    
 };
+
+// minimalism
+// duas partes principais do jogo:
+// usar as cores do império alemão: 
+// mapa pra interações estratégicas
+// escaves
+
+// em escaves, o esquema de cores tem que ser definido pelo ambiente (trincheiras com tons de camuflagem, bunker cinzento, ruinas tons de tijolo)
+// dah pra incluir aimacoeszinhas que nem grama ao vento etc...
+
+// interacoes estrategicas, tons de cinza com explosoes no mapa em vermelho, botoes podem ser preto e branco com divisoes em cinza?

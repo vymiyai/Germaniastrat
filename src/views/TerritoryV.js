@@ -14,10 +14,18 @@ var TerritoryV = function()
         territoryAttributes.type;
         
         var shape = new createjs.Shape();
-        shape.graphics.beginFill( "red" ).drawRect(-50, -50, 100, 100);
+        shape.graphics.beginFill( "gray" ).drawRect(-50, -50, 100, 100);
         shape.x = territoryAttributes.x;
         shape.y = territoryAttributes.y;
         shape.name = territoryAttributes.name;
+        
+        // associate hover functions that only produce graphical changes.
+        
+        var mouseOver   = function( evt, data ){ data.graphics.beginFill( "LightGray" ).drawRect(-50, -50, 100, 100); };
+        var mouseOut    = function( evt, data ){ data.graphics.beginFill( "gray" ).drawRect(-50, -50, 100, 100); };
+        
+        shape.on( "mouseover", mouseOver, null, false, shape );
+        shape.on( "mouseout", mouseOut, null, false, shape );
         
         return shape;
     };

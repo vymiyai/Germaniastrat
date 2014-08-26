@@ -20,6 +20,7 @@
 		
 		<script src='src/views/WorldV.js'></script>
 		<script src='src/views/TerritoryV.js'></script>
+		<script src='src/views/WorldButton.js'></script>
 		
 		<script src='src/manipulators/World.js'></script>
 		<script src='src/manipulators/Germania.js'></script>
@@ -27,6 +28,7 @@
         <script src='src/ui/UI.js'></script>
       	
     </head>
+    
     <body onLoad="init();">
       	<script>
       	    var card = new Card( RIFLEMAN_UNIT );
@@ -42,38 +44,119 @@
       	    var battlegroup = new Battlegroup();
       	    battlegroup.init( { name:"56th Tank Hunters", units:[] } );
       	    
-      	    alert( JSON.stringify( battlegroup.getCargo() ) );
-      	    alert( JSON.stringify( battlegroup.getAttributes() ) );
+      	    //alert( JSON.stringify( battlegroup.getCargo() ) );
+      	    //alert( JSON.stringify( battlegroup.getAttributes() ) );
       	    
       	    battlegroup.addUnit( unit1 );
       	    battlegroup.addUnit( unit2 );
       	    battlegroup.addUnit( unit3 );
       	    
-      	    alert( battlegroup.units.length );
+      	    //alert( battlegroup.units.length );
             
-            alert( JSON.stringify( battlegroup.getCargo() ) );
-            alert( JSON.stringify( battlegroup.getAttributes() ) );
+            //alert( JSON.stringify( battlegroup.getCargo() ) );
+            //alert( JSON.stringify( battlegroup.getAttributes() ) );
 
 
 
 
-
-            var world;
+            //var flag = false;
+            
+            var x = 0;
+            var y = 0;
+            var world, stage;
             
             var init = function() 
             {
-                var stage = new createjs.Stage( "world" );
+                // create a new stage (canvas).
+                stage = new createjs.Stage( "world" );
+                stage.mouseDownFlag = false;
+                stage.mouseMoveFlag = false;
                 
+                var tick = function( evt )
+                {
+                    stage.update( evt );
+                };
+                
+                //createjs.Ticker.setFPS( 30 );
+                //createjs.Ticker.addEventListener( "tick", tick );
+
+                // enable touch events.
+                createjs.Touch.enable( stage );
+
                 // to get onMouseOver & onMouseOut events, we need to enable them on the stage:
                 stage.enableMouseOver();
                 
+                var container = new createjs.Container();
+                container.name = "CONTAINER"
+                
+                var background = new createjs.Shape();
+                var width = stage.canvas.width;
+                var height = stage.canvas.height;
+                background.graphics.beginStroke("red").beginFill( "white" ).drawRect(0, 0, width, height);
+                background.name = "BACKGROUND";
+                container.addChild( background );
+                
+                stage.addChild( container );
+                
+                
+                
+                
+                
+                
+                // draggable interface for scrolling.
+                //______________________________________________________________
+                var stagemousemove = function( evt )
+                { 
+                    if( stage.mouseDownFlag )
+                    {
+                        stage.mouseMoveFlag = true;
+                        
+                        var currentPointerX = evt.stageX;
+                        var currentPointerY = evt.stageY;
+                        
+                        var currentTargetX = evt.currentTarget.x;
+                        var currentTargetY = evt.currentTarget.y;
+                        
+                        evt.currentTarget.x = (currentPointerX - x) + currentTargetX;
+				        evt.currentTarget.y = (currentPointerY - y) + currentTargetY;
+                        
+                        x = currentPointerX;
+                        y = currentPointerY;
+                        
+                        stage.update( evt );
+                    }
+                };
+                
+                var stagemousedown = function( evt )
+                { 
+                    // save the current mouse coordinates for later.
+                    x = evt.stageX; 
+                    y = evt.stageY;
+                    
+                    stage.mouseDownFlag = true;
+                };
+                
+                var stagemouseup = function( evt )
+                { 
+                    stage.mouseDownFlag = false;
+                    stage.mouseMoveFlag = false;
+                };
+                
+                
+                stage.on( "stagemousemove", stagemousemove );
+                stage.on( "stagemousedown", stagemousedown );
+                stage.on( "stagemouseup", stagemouseup );
+                
+                //______________________________________________________________
+                
+                
                 var world = new World( null, stage );
-                world.update();
+                stage.update();
             };
 		
       	</script>
 
-    	<canvas id="world" width="800" height="600">
+    	<canvas id="world" width="800" height="600" style="background-color: black;">
             WTF just happened here...?
     	</canvas>
     </body>
