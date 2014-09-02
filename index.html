@@ -86,13 +86,16 @@
                 // to get onMouseOver & onMouseOut events, we need to enable them on the stage:
                 stage.enableMouseOver();
                 
+                
+                // the main container object.
                 var container = new createjs.Container();
                 container.name = "CONTAINER"
                 
+                // the background that determines the scrollable area.
                 var background = new createjs.Shape();
                 var width = stage.canvas.width;
                 var height = stage.canvas.height;
-                background.graphics.beginStroke("red").beginFill( "white" ).drawRect(0, 0, width, height);
+                background.graphics.beginStroke("red").beginFill( "cyan" ).drawRect(0, 0, 1000, 1000 );
                 background.name = "BACKGROUND";
                 container.addChild( background );
                 
@@ -113,6 +116,18 @@
                         
                     container.x = (currentPointerX - x) + currentTargetX;
                     container.y = (currentPointerY - y) + currentTargetY;
+                    
+                    if( container.x < -200 )
+                        container.x = -200;
+                        
+                    if( container.x > 0 )
+                        container.x = 0;
+                        
+                    if( container.y < -400 )
+                        container.y = -400;
+                        
+                    if( container.y > 0 )
+                        container.y = 0;
                         
                     x = currentPointerX;
                     y = currentPointerY;
@@ -140,7 +155,7 @@
       	</script>
 
     	<canvas id="world" width="800" height="600" style="background-color: black;">
-            WTF just happened here...?
+            Your Webkit version is not compatible with canvas...
     	</canvas>
     </body>
 </html>
