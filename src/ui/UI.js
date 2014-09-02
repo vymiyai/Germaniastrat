@@ -23,10 +23,12 @@ var UI = function( worldModel, stage )
     
     
     // text box from the tutorials.
-    this.ui = new createjs.Text("Test press, click, doubleclick, mouseover, and mouseout", "14px Arial");
-    this.ui.color = "gray";
-    this.ui.x = 10;
-    this.ui.y = 10;
+    var ui = new createjs.Text("Test press, click, doubleclick, mouseover, and mouseout", "14px Arial");
+    ui.name = "DEBUG TEXT";
+    ui.color = "gray";
+    ui.x = 10;
+    ui.y = 10;
+    this.ui = ui;
     this.stage.addChild( this.ui );
     
     

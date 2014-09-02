@@ -13,18 +13,25 @@ var WorldV = function( worldModel, stage, ui )
     for( territoryKey in models )
     {
         var territoryM   = models[ territoryKey ];
-        this.territories[ territoryM.name ] = new TerritoryV().init( territoryM );
+        this.territories[ territoryM.name ] = new TerritoryV( territoryM );
     }
+    
 
-    this.addTerritory = function( territoryV )
+    
+    this.getStage = function()
     {
-        //this.stage.addChild( territoryV );
-        this.stage.getChildByName( "CONTAINER" ).addChild( territoryV );
+        return this.stage;
     };
     
-    var views = this.territories;
-    for( territoryKey in views )
+    this.addTerritory = function( territoryV )
     {
+        this.getStage().getChildByName( "CONTAINER" ).addChild( territoryV );
+    };
+    
+    var territories = this.territories;
+    for( territoryKey in territories )
+    {
+        /*
         var territoryModel  = models[ territoryKey ];
         var territoryView   = views[ territoryKey ];
         var handler         = this.ui.eventHandlers[ territoryKey ];
@@ -41,8 +48,12 @@ var WorldV = function( worldModel, stage, ui )
         territoryView.on("click", click, null, false, data );
         territoryView.on("mouseover", handler, null, false, data );
         territoryView.on("mouseout", handler, null, false, data );
+        */
         
-        this.addTerritory( territoryView );
+        var territoryV = territories[ territoryKey ].getShape();
+        
+        this.addTerritory( territoryV );
+        //this.addTerritory( territoryView );
     }
     
 };
