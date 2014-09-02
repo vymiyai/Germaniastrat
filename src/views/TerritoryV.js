@@ -19,8 +19,7 @@ var TerritoryV = function()
         shape.y = territoryAttributes.y;
         shape.name = territoryAttributes.name;
         
-        // associate hover functions that only produce graphical changes.
-        
+        // associate hover functions that only produce graphical changes (highlight).
         var mouseOver   = function( evt, data ){ data.graphics.beginFill( "LightGray" ).drawRect(-50, -50, 100, 100); };
         var mouseOut    = function( evt, data ){ data.graphics.beginFill( "gray" ).drawRect(-50, -50, 100, 100); };
         

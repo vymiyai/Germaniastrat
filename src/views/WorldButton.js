@@ -1,18 +1,19 @@
 "use strict";
 
 
-var WorldButton= function( width, height )
+var WorldButton= function( name, width, height )
 {
     this.width  = width;
     this.height = height;
     
     // create the abstract container that will contain the button and its label.
     var container = new createjs.Container();
+    container.name = name;
     
     // create the button view.
     var button = new createjs.Shape();
     button.graphics.beginStroke("DimGray").beginFill( "gray" ).drawRect(-width/2, -height/2, width, height);
-    button.name = "WORLD BUTTON";
+    
     container.addChild( button );
     
     // create the label.

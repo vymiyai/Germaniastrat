@@ -77,8 +77,8 @@
                     stage.update( evt );
                 };
                 
-                //createjs.Ticker.setFPS( 30 );
-                //createjs.Ticker.addEventListener( "tick", tick );
+                createjs.Ticker.setFPS( 60 );
+                createjs.Ticker.addEventListener( "tick", tick );
 
                 // enable touch events.
                 createjs.Touch.enable( stage );
@@ -95,7 +95,7 @@
                 var background = new createjs.Shape();
                 var width = stage.canvas.width;
                 var height = stage.canvas.height;
-                background.graphics.beginStroke("red").beginFill( "cyan" ).drawRect(0, 0, 1000, 1000 );
+                background.graphics.beginStroke("red").beginFill( "DimGray" ).drawRect(0, 0, 1000, 1000 );
                 background.name = "BACKGROUND";
                 container.addChild( background );
                 
@@ -103,7 +103,6 @@
                 
 
                 //______________________________________________________________
-                
                 // draggable interface for scrolling.
                 //______________________________________________________________
                 var pressmove = function( evt )
@@ -117,6 +116,7 @@
                     container.x = (currentPointerX - x) + currentTargetX;
                     container.y = (currentPointerY - y) + currentTargetY;
                     
+                    // cap the boundaries if the background gets outside of the stage.
                     if( container.x < -200 )
                         container.x = -200;
                         
@@ -140,6 +140,10 @@
                     // save the current mouse coordinates for later.
                     x = evt.stageX; 
                     y = evt.stageY;
+                    
+                    // dismiss the UI menu.
+                    createjs.Tween.get( stage.getChildByName( "WORLD MENU" ) )
+                        .to( { y: 700 }, 200, createjs.Ease.quintIn );
                 };
                 
                 

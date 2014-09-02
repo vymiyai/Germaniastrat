@@ -30,16 +30,15 @@ var WorldV = function( worldModel, stage, ui )
         var handler         = this.ui.eventHandlers[ territoryKey ];
         var data            = { model:territoryModel, view:territoryView, ui:this.ui.ui, stage:this.stage };
         
-        var click = function()
+        var click = function( evt, data )
         {
-            var bounds = stage.getChildByName( "CONTAINER" ).getBounds();
-            
-            if( true )
-                alert( bounds );
+            // summon menu with this territory as a target.
+            createjs.Tween.get( data.stage.getChildByName( "WORLD MENU" ) )
+                .to( { y: 545}, 200, createjs.Ease.quintOut );
+                //.call(handleComplete);
         };
         
         territoryView.on("click", click, null, false, data );
-        territoryView.on("dblclick", handler, null, false, data );
         territoryView.on("mouseover", handler, null, false, data );
         territoryView.on("mouseout", handler, null, false, data );
         

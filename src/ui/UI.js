@@ -6,22 +6,32 @@ var UI = function( worldModel, stage )
     this.stage = stage;
     
     // a shape.
-    var button = new WorldButton( 200, 100 );
+    var button = new WorldButton( "WORLD MENU", 200, 100 );
+    
     button.setX( this.stage.canvas.width/2 );
     //button.setY( this.stage.canvas.height/2 );
     button.setY( this.stage.canvas.height + 100 );
+    
     button.getShape().on("click", function()
     { 
         alert( "LABEL" );
     }, null, false );
     this.stage.addChild( button.getShape() );
     
-    // text box.
+    
+    
+    
+    
+    // text box from the tutorials.
     this.ui = new createjs.Text("Test press, click, doubleclick, mouseover, and mouseout", "14px Arial");
-    this.ui.color = "DimGray";
+    this.ui.color = "gray";
     this.ui.x = 10;
     this.ui.y = 10;
     this.stage.addChild( this.ui );
+    
+    
+    
+    
     
     this.eventHandlers  = {};
     
