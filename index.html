@@ -98,55 +98,38 @@
                 
                 stage.addChild( container );
                 
-                
-                
-                
-                
+
+                //______________________________________________________________
                 
                 // draggable interface for scrolling.
                 //______________________________________________________________
-                var stagemousemove = function( evt )
-                { 
-                    if( stage.mouseDownFlag )
-                    {
-                        stage.mouseMoveFlag = true;
+                var pressmove = function( evt )
+                {
+                    var currentPointerX = evt.stageX;
+                    var currentPointerY = evt.stageY;
                         
-                        var currentPointerX = evt.stageX;
-                        var currentPointerY = evt.stageY;
+                    var currentTargetX = container.x;
+                    var currentTargetY = container.y;
                         
-                        var currentTargetX = evt.currentTarget.x;
-                        var currentTargetY = evt.currentTarget.y;
+                    container.x = (currentPointerX - x) + currentTargetX;
+                    container.y = (currentPointerY - y) + currentTargetY;
                         
-                        evt.currentTarget.x = (currentPointerX - x) + currentTargetX;
-				        evt.currentTarget.y = (currentPointerY - y) + currentTargetY;
+                    x = currentPointerX;
+                    y = currentPointerY;
                         
-                        x = currentPointerX;
-                        y = currentPointerY;
-                        
-                        stage.update( evt );
-                    }
+                    stage.update( evt );
                 };
                 
-                var stagemousedown = function( evt )
+                var mousedown = function( evt )
                 { 
                     // save the current mouse coordinates for later.
                     x = evt.stageX; 
                     y = evt.stageY;
-                    
-                    stage.mouseDownFlag = true;
-                };
-                
-                var stagemouseup = function( evt )
-                { 
-                    stage.mouseDownFlag = false;
-                    stage.mouseMoveFlag = false;
                 };
                 
                 
-                stage.on( "stagemousemove", stagemousemove );
-                stage.on( "stagemousedown", stagemousedown );
-                stage.on( "stagemouseup", stagemouseup );
-                
+                background.on( "pressmove", pressmove );
+                background.on( "mousedown", mousedown );
                 //______________________________________________________________
                 
                 
