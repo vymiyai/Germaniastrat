@@ -14,7 +14,7 @@ var WorldButton= function( name, width, height )
     
     // create the button view.
     var button = new createjs.Shape();
-    button.graphics.beginStroke("DimGray").beginFill( "gray" ).drawRect(-width/2, -height/2, width, height);
+    button.graphics.beginStroke( CONFIG.BUTTON_STROKE_COLOR ).beginFill(CONFIG.BUTTON_FILL_COLOR ).drawRect( -width/2, -height/2, width, height );
     this.button = button;
     
     container.addChild( button );

@@ -5,7 +5,7 @@ var WorldM = function( context )
     this.territories    = {};
     
     // these should be computed from the context.
-    this.names = [ "AREA_1", "AREA_2", "AREA_3", "AREA_4" ];
+    this.names = [ "AREA_0", "AREA_1", "AREA_2", "AREA_3", "AREA_4", "AREA_5", "AREA_6", "AREA_7", "AREA_8" ];
     
     // returns the context of a specific territory.
     this.getTerritoryContext = function( context, name )

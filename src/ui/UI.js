@@ -6,11 +6,10 @@ var UI = function( worldModel, stage )
     this.stage = stage;
     
     // a shape.
-    var button = new WorldButton( "WORLD MENU", 200, 100 );
+    var button = new WorldButton( "WORLD MENU", CONFIG.BUTTON_WIDTH, CONFIG.BUTTON_HEIGHT );
     
     button.setX( this.stage.canvas.width/2 );
-    //button.setY( this.stage.canvas.height/2 );
-    button.setY( this.stage.canvas.height + 100 );
+    button.setY( this.stage.canvas.height + CONFIG.BUTTON_HEIGHT / 2 );
     
     button.getShape().on("click", function()
     { 

@@ -11,6 +11,7 @@
 		<script src='src/data/cards.js'></script>
 		<script src='src/data/territories.js'></script>
 		<script src='src/data/territoryTypes.js'></script>
+		<script src='src/data/config.js'></script>
 		
 		<script src='src/models/Battlegroup.js'></script>
 		<script src='src/models/Card.js'></script>
@@ -61,10 +62,10 @@
 
 
 
-            //var flag = false;
-            
+            // the x and y coordinates of the last mouse down event.
             var x = 0;
             var y = 0;
+            
             var world, stage;
             
             var init = function() 
@@ -79,7 +80,7 @@
                     stage.update( evt );
                 };
                 
-                createjs.Ticker.setFPS( 60 );
+                createjs.Ticker.setFPS( 30 );
                 createjs.Ticker.addEventListener( "tick", tick );
 
                 // enable touch events.
@@ -95,64 +96,14 @@
                 
                 // the background that determines the scrollable area.
                 var background = new createjs.Shape();
-                var width = stage.canvas.width;
-                var height = stage.canvas.height;
-                background.graphics.beginStroke("red").beginFill( "DimGray" ).drawRect(0, 0, 1000, 1000 );
                 background.name = "BACKGROUND";
+                background.graphics.beginStroke( CONFIG.BACKGROUND_STROKE_COLOR )
+                    .beginFill( CONFIG.BACKGROUND_FILL_COLOR )
+                    .drawRect( 0, 0, CONFIG.BACKGROUND_WIDTH, CONFIG.BACKGROUND_HEIGHT );
+                    
                 container.addChild( background );
                 
                 stage.addChild( container );
-                
-
-                //______________________________________________________________
-                // draggable interface for scrolling.
-                //______________________________________________________________
-                var pressmove = function( evt )
-                {
-                    var currentPointerX = evt.stageX;
-                    var currentPointerY = evt.stageY;
-                        
-                    var currentTargetX = container.x;
-                    var currentTargetY = container.y;
-                        
-                    container.x = (currentPointerX - x) + currentTargetX;
-                    container.y = (currentPointerY - y) + currentTargetY;
-                    
-                    // cap the boundaries if the background gets outside of the stage.
-                    if( container.x < -200 )
-                        container.x = -200;
-                        
-                    if( container.x > 0 )
-                        container.x = 0;
-                        
-                    if( container.y < -400 )
-                        container.y = -400;
-                        
-                    if( container.y > 0 )
-                        container.y = 0;
-                        
-                    x = currentPointerX;
-                    y = currentPointerY;
-                        
-                    stage.update( evt );
-                };
-                
-                var mousedown = function( evt )
-                { 
-                    // save the current mouse coordinates for later.
-                    x = evt.stageX; 
-                    y = evt.stageY;
-                    
-                    // dismiss the UI menu.
-                    createjs.Tween.get( stage.getChildByName( "WORLD MENU" ) )
-                        .to( { y: 700 }, 200, createjs.Ease.quintIn );
-                };
-                
-                
-                background.on( "pressmove", pressmove );
-                background.on( "mousedown", mousedown );
-                //______________________________________________________________
-                
                 
                 var world = new World( null, stage );
                 stage.update();

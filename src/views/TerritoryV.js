@@ -15,7 +15,7 @@ var TerritoryV = function( territoryM )
     
     // initialize the shape.
     var shape = new createjs.Shape();
-    shape.graphics.beginFill( "gray" ).drawRect(-50, -50, 100, 100);
+    shape.graphics.beginFill( "gray" ).drawRect(-100, -100, 200, 200);
     shape.x = territoryAttributes.x;
     shape.y = territoryAttributes.y;
     shape.name = territoryAttributes.name;
@@ -26,6 +26,7 @@ var TerritoryV = function( territoryM )
     this.shape.on( "mouseover", function( evt, data ){ data.state.onMouseOver( evt, data ); }, null, false, this );
     this.shape.on( "mouseout", function( evt, data ){ data.state.onMouseOut( evt, data ); }, null, false, this );
     this.shape.on( "mousedown", function( evt, data ){ data.state.onMouseDown( evt, data ); }, null, false, this );
+    this.shape.on( "pressup", function( evt, data ){ data.state.onPressUp( evt, data ); }, null, false, this );
     this.shape.on( "pressmove", function( evt, data ){ data.state.onPressMove( evt, data ); }, null, false, this );
     
     // sets the state of this territory view.

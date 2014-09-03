@@ -5,33 +5,35 @@
 // if hovered: will change color.
 var TerritoryWorldIdle = function()
 {
+    this.shouldShowMenu = true;
+    this.context = null;
+    
     this.onClick = function( evt, data )
     {
-        // summon menu with this territory as a target.
-        var worldMenu = evt.target.getStage().getChildByName( "WORLD MENU" );
-        worldMenu.getChildByName( "LABEL" ).text = data.name;
-        createjs.Tween.get( worldMenu )
-            .to( { y: 545}, 200, createjs.Ease.quintOut );
-        evt.target.getStage().update();
+        if( this.shouldShowMenu )
+        {
+            // summon menu with this territory as a target.
+            //
+            this.context.getChildByName( "LABEL" ).text = data.name;
+            createjs.Tween.get( this.context )
+                .to( { y: 545}, 200, createjs.Ease.quintOut );
+            
+            evt.target.getStage().update();
+        }
     };
     
     this.onMouseOver = function( evt, data )
     {
         evt.target.getStage().getChildByName( "DEBUG TEXT" ).text = "evt.target: "+evt.target+", evt.type: "+evt.type+", view: "+data.name;
-        evt.target.graphics.beginFill( "LightGray" ).drawRect(-50, -50, 100, 100);
+        evt.target.graphics.beginFill( "LightGray" ).drawRect(-100, -100, 200, 200);
         evt.target.getStage().update();
     };
     
     this.onMouseOut = function( evt, data )
     {
         evt.target.getStage().getChildByName( "DEBUG TEXT" ).text = "evt.target: "+evt.target+", evt.type: "+evt.type+", view: "+data.name;
-        evt.target.graphics.beginFill( "gray" ).drawRect(-50, -50, 100, 100);
+        evt.target.graphics.beginFill( "gray" ).drawRect(-100, -100, 200, 200);
         evt.target.getStage().update();
-    };
-    
-    this.onPressMove = function( evt, data )
-    {
-        // do nothing for now...
     };
     
     this.onMouseDown = function( evt, data )
@@ -39,14 +41,19 @@ var TerritoryWorldIdle = function()
         // save the current mouse coordinates for later.
         x = evt.stageX; 
         y = evt.stageY;
-                    
-        // dismiss the UI menu.
-        //createjs.Tween.get( evt.target.getStage().getChildByName( "WORLD MENU" ) )
-        //    .to( { y: 700 }, 200, createjs.Ease.quintIn );
+        
+        this.context = evt.target.getStage().getChildByName( "WORLD MENU" );
+    };
+    
+    this.onPressUp = function( evt, data )
+    {
+        this.shouldShowMenu = true;
     };
     
     this.onPressMove = function( evt, data )
     {
+        this.shouldShowMenu = false;
+        
         var container = evt.target.getStage().getChildByName( "CONTAINER" );
         
         var currentPointerX = evt.stageX;
@@ -73,7 +80,13 @@ var TerritoryWorldIdle = function()
                         
         x = currentPointerX;
         y = currentPointerY;
-                        
+        
+        if( ! createjs.Tween.hasActiveTweens( this.context ) )
+        {
+            createjs.Tween.get( this.context )
+                .to( { y: 700 }, 200, createjs.Ease.quintIn );
+        }
+                
         evt.target.getStage().update( evt );
     };
     
