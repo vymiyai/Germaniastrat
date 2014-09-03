@@ -3,16 +3,29 @@
 // the container for virtually anything realted to the strategic/management part of the application.
 var World = function( context, stage )
 {
-    this.stage = stage;
-    
+    this.stage  = stage;
+    this.ui     = new UI( this.stage );
     this.model  = new WorldM( context );
-    this.ui     = new UI( this.model, this.stage );
-    this.view   = new WorldV( this.model, this.stage, this.ui );            // associated models->handlers are already included in UI. 
+    this.view   = new WorldV( this.model, this.stage );
     
-    /*
-    this.update = function()
+    this.getStage = function()
     {
-        this.stage.update();
+        return this.stage;
     };
-    */
+    
+    this.getUI = function()
+    {
+        return this.ui;
+    };
+    
+    this.getModel = function()
+    {
+        return this.model;
+    };
+    
+    this.getView = function()
+    {
+        return this.view;
+    };
+    
 };

@@ -1,59 +1,25 @@
 "use strict";
 
 // the graphical representation of the map.
-var WorldV = function( worldModel, stage, ui )
+var WorldV = function( worldModel, stage )
 {
     this.stage          = stage;
-    this.ui             = ui;
     this.territories    = {};
     
-    var territoryKey;
-
-    var models = worldModel.getTerritories();
-    for( territoryKey in models )
-    {
-        var territoryM   = models[ territoryKey ];
-        this.territories[ territoryM.name ] = new TerritoryV( territoryM );
-    }
-    
-
-    
-    this.getStage = function()
-    {
-        return this.stage;
-    };
-    
+    // adds a territory view object to this world view.
     this.addTerritory = function( territoryV )
     {
-        this.getStage().getChildByName( "CONTAINER" ).addChild( territoryV );
+        this.stage.getChildByName( "CONTAINER" ).addChild( territoryV );
     };
     
-    var territories = this.territories;
-    for( territoryKey in territories )
+    var models = worldModel.getTerritories();
+    for( var territoryKey in models )
     {
-        /*
-        var territoryModel  = models[ territoryKey ];
-        var territoryView   = views[ territoryKey ];
-        var handler         = this.ui.eventHandlers[ territoryKey ];
-        var data            = { model:territoryModel, view:territoryView, ui:this.ui.ui, stage:this.stage };
+        var territoryM  = models[ territoryKey ];
+        var territoryV  = new TerritoryV( territoryM );
         
-        var click = function( evt, data )
-        {
-            // summon menu with this territory as a target.
-            createjs.Tween.get( data.stage.getChildByName( "WORLD MENU" ) )
-                .to( { y: 545}, 200, createjs.Ease.quintOut );
-                //.call(handleComplete);
-        };
-        
-        territoryView.on("click", click, null, false, data );
-        territoryView.on("mouseover", handler, null, false, data );
-        territoryView.on("mouseout", handler, null, false, data );
-        */
-        
-        var territoryV = territories[ territoryKey ].getShape();
-        
-        this.addTerritory( territoryV );
-        //this.addTerritory( territoryView );
+        this.territories[ territoryM.name ] = territoryV;
+        this.addTerritory( territoryV.getShape() );
     }
-    
+
 };

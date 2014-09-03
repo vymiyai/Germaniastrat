@@ -16,7 +16,7 @@ var TerritoryM = function( name )
     this.init = function( territoryContext )
     {
         this.timestamp = territoryContext.timestamp;
-        this.resources = territoryContext.resouces;
+        this.resources = territoryContext.resources;
     };
     
     // updates the timestamp and resources in case they are changed.
@@ -40,6 +40,12 @@ var TerritoryM = function( name )
         
         // update resources.
         this.resources = { food: 0, ammo: 0, fuel: 0 };
+    };
+    
+    // returns the name of this territory.
+    this.getName = function()
+    {
+        return this.name;
     };
     
     // returns the relevant that will be shown in he user interace.

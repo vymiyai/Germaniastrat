@@ -1,21 +1,22 @@
 "use strict";
 
 // the creator of all handlers. In a perfect world, this should be a state machine in a RESTful style...
-var UI = function( worldModel, stage )
+var UI = function( stage )
 {
-    this.stage = stage;
+    this.stage          = stage;
+    this.worldMenu      = new createjs.Container();
+    this.worldMenu.name = "WORLD MENU";
     
-    // a shape.
-    var button = new WorldButton( "WORLD MENU", CONFIG.BUTTON_WIDTH, CONFIG.BUTTON_HEIGHT );
+    // assign the resource panel to the world menu.
+    this.territoryResourcePanel = new TerritoryResourcePanel();
     
-    button.setX( this.stage.canvas.width/2 );
-    button.setY( this.stage.canvas.height + CONFIG.BUTTON_HEIGHT / 2 );
+    this.worldMenu.addChild( this.territoryResourcePanel.getShape() );
+    this.worldMenu.x = this.stage.canvas.width/2;
+    this.worldMenu.y = this.stage.canvas.height + CONFIG.BUTTON_HEIGHT / 2;
     
-    button.getShape().on("click", function()
-    { 
-        alert( "LABEL" );
-    }, null, false );
-    this.stage.addChild( button.getShape() );
+    this.stage.addChild( this.worldMenu );
+    
+    
     
     
     
@@ -30,30 +31,10 @@ var UI = function( worldModel, stage )
     this.ui = ui;
     this.stage.addChild( this.ui );
     
-    
-    
-    
-    
-    this.eventHandlers  = {};
-    
-    // not only territories will have handlers assigned...
-    var territories = worldModel.getTerritories();
-    for( var territoryIndex in territories )
+    this.getTerritoryResourcePanel = function()
     {
-        var model = territories[ territoryIndex ];
-        
-        // prepare a handler somehow.
-        this.eventHandlers[ model.name ] = function handleMouseEvent( evt, data ) 
-        {
-            // data: {model:???, view:???, ui:???, stage:stage}
-            data.ui.text = "evt.target: "+evt.target+", evt.type: "+evt.type+", view: "+data.model.name;
-            
-            // to save CPU, we're only updating when we need to, instead of on a tick:1
-            data.stage.update();
-        };
-        
-    }
-    
+        return this.territoryResourcePanel;
+    };
 };
 
 // minimalism

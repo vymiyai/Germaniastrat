@@ -6,17 +6,16 @@
 var TerritoryWorldIdle = function()
 {
     this.shouldShowMenu = true;
-    this.context = null;
+    this.context        = null;
     
     this.onClick = function( evt, data )
     {
         if( this.shouldShowMenu )
         {
             // summon menu with this territory as a target.
-            //
-            this.context.getChildByName( "LABEL" ).text = data.name;
+            WORLD.getUI().getTerritoryResourcePanel().setReferencedTerritory( data.model );
             createjs.Tween.get( this.context )
-                .to( { y: 545}, 200, createjs.Ease.quintOut );
+                .to( { y: 545}, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintOut );
             
             evt.target.getStage().update();
         }
@@ -25,14 +24,14 @@ var TerritoryWorldIdle = function()
     this.onMouseOver = function( evt, data )
     {
         evt.target.getStage().getChildByName( "DEBUG TEXT" ).text = "evt.target: "+evt.target+", evt.type: "+evt.type+", view: "+data.name;
-        evt.target.graphics.beginFill( "LightGray" ).drawRect(-100, -100, 200, 200);
+        evt.target.graphics.beginFill( "LightGray" ).drawRect( -CONFIG.TERRITORY_WIDTH/2, -CONFIG.TERRITORY_HEIGHT/2, CONFIG.TERRITORY_WIDTH, CONFIG.TERRITORY_HEIGHT );
         evt.target.getStage().update();
     };
     
     this.onMouseOut = function( evt, data )
     {
         evt.target.getStage().getChildByName( "DEBUG TEXT" ).text = "evt.target: "+evt.target+", evt.type: "+evt.type+", view: "+data.name;
-        evt.target.graphics.beginFill( "gray" ).drawRect(-100, -100, 200, 200);
+        evt.target.graphics.beginFill( "gray" ).drawRect( -CONFIG.TERRITORY_WIDTH/2, -CONFIG.TERRITORY_HEIGHT/2, CONFIG.TERRITORY_WIDTH, CONFIG.TERRITORY_HEIGHT );
         evt.target.getStage().update();
     };
     
@@ -42,6 +41,7 @@ var TerritoryWorldIdle = function()
         x = evt.stageX; 
         y = evt.stageY;
         
+        // set the context as the WORLD MENU container.
         this.context = evt.target.getStage().getChildByName( "WORLD MENU" );
     };
     
@@ -84,7 +84,7 @@ var TerritoryWorldIdle = function()
         if( ! createjs.Tween.hasActiveTweens( this.context ) )
         {
             createjs.Tween.get( this.context )
-                .to( { y: 700 }, 200, createjs.Ease.quintIn );
+                .to( { y: 700 }, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintIn );
         }
                 
         evt.target.getStage().update( evt );

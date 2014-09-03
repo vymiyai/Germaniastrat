@@ -2,20 +2,21 @@
 
 var TerritoryV = function( territoryM )
 {
-    this.name = "territory";
-    this.shape = null;
-    this.state = new TerritoryWorldIdle();
+    this.name   = "territory";
+    this.model  = territoryM;
+    this.shape  = null;
+    this.state  = new TerritoryWorldIdle();
     
     // set the name of this territory.
-    this.name   = territoryM.name;
+    this.name   = this.model.name;
         
     // use this to define some difference between world territory types.
-    var territoryAttributes = territoryM.getAttributes();
+    var territoryAttributes = this.model.getAttributes();
     territoryAttributes.type;
     
     // initialize the shape.
     var shape = new createjs.Shape();
-    shape.graphics.beginFill( "gray" ).drawRect(-100, -100, 200, 200);
+    shape.graphics.beginFill( "gray" ).drawRect( -CONFIG.TERRITORY_WIDTH/2, -CONFIG.TERRITORY_HEIGHT/2, CONFIG.TERRITORY_WIDTH, CONFIG.TERRITORY_HEIGHT );
     shape.x = territoryAttributes.x;
     shape.y = territoryAttributes.y;
     shape.name = territoryAttributes.name;
