@@ -95,7 +95,7 @@
                     stage.update( evt );
                 };
                 
-                createjs.Ticker.setFPS( 30 );
+                createjs.Ticker.setFPS( CONFIG.FPS );
                 createjs.Ticker.addEventListener( "tick", tick );
 
                 // enable touch events.
@@ -124,7 +124,6 @@
                 var context = PROFILER.loadProfile( "PROFILE" );
                 
                 WORLD = new World( context, stage );
-                stage.update();
                 
                 // set a regular 0.5s world model refresh.
                 var INTERVAL_ID = window.setInterval( function(){ WORLD.resolve( new Date().getTime() ); }, 500);

@@ -2,6 +2,9 @@
 
 var CONFIG = {};
 
+// global.
+CONFIG.FPS                      = 30;
+
 // world menu configuratons.
 CONFIG.BUTTON_HEIGHT            = 100;
 CONFIG.BUTTON_WIDTH             = 200;
