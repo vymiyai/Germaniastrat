@@ -70,6 +70,7 @@
             
             // global variable that contains eveything...
             var WORLD;
+            var GERMANIA = new Germania();
             
             // profiler instance.
             var PROFILER = new Profiler();
@@ -87,8 +88,6 @@
             {
                 // create a new stage (canvas).
                 var stage = new createjs.Stage( "STAGE" );
-                stage.mouseDownFlag = false;
-                stage.mouseMoveFlag = false;
                 
                 var tick = function( evt )
                 {
@@ -105,28 +104,10 @@
                 stage.enableMouseOver();
                 
                 
-                // the main container object.
-                var container = new createjs.Container();
-                container.name = "CONTAINER"
-                
-                // the background that determines the scrollable area.
-                var background = new createjs.Shape();
-                background.name = "BACKGROUND";
-                background.graphics.beginStroke( CONFIG.BACKGROUND_STROKE_COLOR )
-                    .beginFill( CONFIG.BACKGROUND_FILL_COLOR )
-                    .drawRect( 0, 0, CONFIG.BACKGROUND_WIDTH, CONFIG.BACKGROUND_HEIGHT );
-                    
-                container.addChild( background );
-                
-                stage.addChild( container );
-                
-                // load profile.
+                // instantiate and initialize the world.
                 var context = PROFILER.loadProfile( "PROFILE" );
-                
-                WORLD = new World( context, stage );
-                
-                // set a regular 0.5s world model refresh.
-                var INTERVAL_ID = window.setInterval( function(){ WORLD.resolve( new Date().getTime() ); }, CONFIG.RESOLVE_INTERVAL );
+                WORLD = GERMANIA.getWorld( context, stage );
+                WORLD.START();
             };
 		
       	</script>

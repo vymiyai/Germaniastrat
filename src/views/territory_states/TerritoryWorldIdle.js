@@ -21,7 +21,7 @@ var TerritoryWorldIdle = function()
     this.getWorldContainer = function()
     {
         if( this.worldContainer === null )
-            this.worldContainer = WORLD.getStage().getChildByName( "CONTAINER" );
+            this.worldContainer = WORLD.getStage().getChildByName( "WORLD CONTAINER" );
         
         return this.worldContainer;
     };

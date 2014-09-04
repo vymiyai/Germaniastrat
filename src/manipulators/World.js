@@ -7,6 +7,8 @@ var World = function( context, stage )
     this.ui             = new UI( this.stage );
     this.model          = new WorldM( context );
     this.view           = new WorldV( this.model, this.stage );
+    
+    this.INTERVAL_ID    = null;
     this.lastResolve    = 0;
     
     this.getStage = function()
@@ -43,6 +45,12 @@ var World = function( context, stage )
         
         // update the UI.
         this.ui.update();
+    };
+    
+    // starts the world through setup of the global resolve interval.
+    this.START = function()
+    {
+        this.INTERVAL_ID = window.setInterval( function(){ WORLD.resolve( new Date().getTime() ); }, CONFIG.RESOLVE_INTERVAL );
     };
     
 };

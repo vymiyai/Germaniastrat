@@ -9,7 +9,7 @@ var WorldV = function( worldModel, stage )
     // adds a territory view object to this world view.
     this.addTerritory = function( territoryV )
     {
-        this.stage.getChildByName( "CONTAINER" ).addChild( territoryV );
+        this.stage.getChildByName( "WORLD CONTAINER" ).addChild( territoryV );
     };
     
     var models = worldModel.getTerritories();
