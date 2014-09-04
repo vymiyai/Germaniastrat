@@ -4,6 +4,7 @@ var CONFIG = {};
 
 // global.
 CONFIG.FPS                      = 30;
+CONFIG.RESOLVE_INTERVAL         = 500;
 
 // world menu configuratons.
 CONFIG.BUTTON_HEIGHT            = 100;

@@ -126,7 +126,7 @@
                 WORLD = new World( context, stage );
                 
                 // set a regular 0.5s world model refresh.
-                var INTERVAL_ID = window.setInterval( function(){ WORLD.resolve( new Date().getTime() ); }, 500);
+                var INTERVAL_ID = window.setInterval( function(){ WORLD.resolve( new Date().getTime() ); }, CONFIG.RESOLVE_INTERVAL );
             };
 		
       	</script>
