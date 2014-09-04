@@ -23,7 +23,7 @@ var UI = function( stage )
     
     
     // text box from the tutorials.
-    var ui = new createjs.Text("Test press, click, doubleclick, mouseover, and mouseout", "14px Arial");
+    var ui = new createjs.Text("Test press, click, mouseover, and mouseout", "14px Arial");
     ui.name = "DEBUG TEXT";
     ui.color = "gray";
     ui.x = 10;
@@ -34,6 +34,11 @@ var UI = function( stage )
     this.getTerritoryResourcePanel = function()
     {
         return this.territoryResourcePanel;
+    };
+    
+    this.update = function()
+    {
+        this.territoryResourcePanel.update();
     };
 };
 

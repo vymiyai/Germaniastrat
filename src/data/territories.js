@@ -1,5 +1,6 @@
 "use strict";
 
+// static data for territories. Dynamic values should be loaded via the Profiler.
 var TERRITORIES = {};
 
 TERRITORIES.AREA_0 = {

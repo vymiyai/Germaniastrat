@@ -21,7 +21,7 @@ var TerritoryM = function( name )
     
     // updates the timestamp and resources in case they are changed.
     // this method should be called everytime an interaction is made or regularly from time to time.
-    this.update = function( timestamp )
+    this.resolve = function( timestamp )
     {
         // retrieve last timestamp.
         var lastTimestamp = this.timestamp;
@@ -39,7 +39,7 @@ var TerritoryM = function( name )
         // TODO
         
         // update resources.
-        this.resources = { food: 0, ammo: 0, fuel: 0 };
+        this.resources = { food: this.resources.food + timePassed, ammo: this.resources.ammo + timePassed, fuel: this.resources.fuel + timePassed };
     };
     
     // returns the name of this territory.

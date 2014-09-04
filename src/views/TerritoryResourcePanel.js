@@ -26,11 +26,20 @@ var TerritoryResourcePanel = function()
     this.label.y        = -this.label.getMeasuredHeight()/2;
     this.container.addChild( this.label );
     
+    this.update = function()
+    {
+        // update label only if the territory model has been set.
+        if( this.territoryModel !== null )
+        {
+            var resources   = this.territoryModel.getStatus().resources;
+            this.label.text = this.territoryModel.getName() + "\n\nFOOD " + resources.food + "\nAMMO " + resources.ammo + "\nFUEL " + resources.fuel;
+        }
+    };
+    
+    // assigns a territory model whose data will be shown in the UI.
     this.setReferencedTerritory = function( territoryModel )
     {
         this.territoryModel = territoryModel;
-        var resources       = this.territoryModel.getStatus().resources;
-        this.label.text     = this.territoryModel.getName() + "\n\nFOOD " + resources.food + "\nAMMO " + resources.ammo + "\nFUEL " + resources.fuel;
     };
     
     this.getShape = function()

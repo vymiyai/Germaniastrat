@@ -19,6 +19,8 @@
 		<script src='src/models/WorldM.js'></script>
 		<script src='src/models/TerritoryM.js'></script>
 		
+		<script src='src/models/Profiler.js'></script>
+		
 		<script src='src/views/WorldV.js'></script>
 		<script src='src/views/TerritoryV.js'></script>
 		<script src='src/views/TerritoryResourcePanel.js'></script>
@@ -69,6 +71,18 @@
             // global variable that contains eveything...
             var WORLD;
             
+            // profiler instance.
+            var PROFILER = new Profiler();
+            
+            // the resolver id to be stopped when pausing the game.
+            var INTERVAL_ID = null;
+            
+            // delete the test profile if it exists and start a new profile.
+            if( PROFILER.loadProfile( "PROFILE" ) )
+                PROFILER.deleteProfile( "PROFILE" );
+                
+            //PROFILER.saveProfile( "PROFILE", {} );
+            
             var init = function() 
             {
                 // create a new stage (canvas).
@@ -106,8 +120,14 @@
                 
                 stage.addChild( container );
                 
-                WORLD = new World( null, stage );
+                // load profile.
+                var context = PROFILER.loadProfile( "PROFILE" );
+                
+                WORLD = new World( context, stage );
                 stage.update();
+                
+                // set a regular 0.5s world model refresh.
+                var INTERVAL_ID = window.setInterval( function(){ WORLD.resolve( new Date().getTime() ); }, 500);
             };
 		
       	</script>

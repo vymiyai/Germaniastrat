@@ -6,18 +6,38 @@
 var TerritoryWorldIdle = function()
 {
     this.shouldShowMenu = true;
-    this.context        = null;
+    this.worldMenu      = null;
+    this.worldContainer = null;
+    
+    this.getWorldMenu = function()
+    {
+        if( this.worldMenu === null )
+            this.worldMenu = WORLD.getStage().getChildByName( "WORLD MENU" );
+        
+        return this.worldMenu;
+    };
+    
+    this.getWorldContainer = function()
+    {
+        if( this.worldContainer === null )
+            this.worldContainer = WORLD.getStage().getChildByName( "CONTAINER" );
+        
+        return this.worldContainer;
+    };
     
     this.onClick = function( evt, data )
     {
+        // show menu only if the click was made without a pressmove.
         if( this.shouldShowMenu )
         {
-            // summon menu with this territory as a target.
+            // assign the territory resource panel with the "data" territory as a target.
             WORLD.getUI().getTerritoryResourcePanel().setReferencedTerritory( data.model );
-            createjs.Tween.get( this.context )
-                .to( { y: 545}, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintOut );
+            WORLD.resolve( new Date().getTime() );
             
-            evt.target.getStage().update();
+            // summon menu.
+            var worldMenu = this.getWorldMenu();
+            createjs.Tween.get( worldMenu )
+                .to( { y: 545}, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintOut );
         }
     };
     
@@ -40,9 +60,6 @@ var TerritoryWorldIdle = function()
         // save the current mouse coordinates for later.
         x = evt.stageX; 
         y = evt.stageY;
-        
-        // set the context as the WORLD MENU container.
-        this.context = evt.target.getStage().getChildByName( "WORLD MENU" );
     };
     
     this.onPressUp = function( evt, data )
@@ -54,7 +71,7 @@ var TerritoryWorldIdle = function()
     {
         this.shouldShowMenu = false;
         
-        var container = evt.target.getStage().getChildByName( "CONTAINER" );
+        var container = this.getWorldContainer();
         
         var currentPointerX = evt.stageX;
         var currentPointerY = evt.stageY;
@@ -64,7 +81,7 @@ var TerritoryWorldIdle = function()
                         
         container.x = (currentPointerX - x) + currentTargetX;
         container.y = (currentPointerY - y) + currentTargetY;
-                    
+        
         // cap the boundaries if the background gets outside of the stage.
         if( container.x < -200 )
             container.x = -200;
@@ -81,13 +98,13 @@ var TerritoryWorldIdle = function()
         x = currentPointerX;
         y = currentPointerY;
         
-        if( ! createjs.Tween.hasActiveTweens( this.context ) )
+        // dismiss menu if it is not being dismissed yet.
+        var worldMenu = this.getWorldMenu();
+        if( ! createjs.Tween.hasActiveTweens( worldMenu ) )
         {
-            createjs.Tween.get( this.context )
+            createjs.Tween.get( worldMenu )
                 .to( { y: 700 }, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintIn );
         }
-                
-        evt.target.getStage().update( evt );
     };
     
 };
