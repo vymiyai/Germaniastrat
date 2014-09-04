@@ -8,6 +8,7 @@ var TerritoryWorldIdle = function()
     this.shouldShowMenu = true;
     this.worldMenu      = null;
     this.worldContainer = null;
+    this.canvas         = null;
     
     this.getWorldMenu = function()
     {
@@ -25,6 +26,14 @@ var TerritoryWorldIdle = function()
         return this.worldContainer;
     };
     
+    this.getCanvas = function()
+    {
+        if( this.canvas === null )
+            this.canvas = WORLD.getStage().canvas;
+            
+        return this.canvas;
+    };
+    
     this.onClick = function( evt, data )
     {
         // show menu only if the click was made without a pressmove.
@@ -37,7 +46,7 @@ var TerritoryWorldIdle = function()
             // summon menu.
             var worldMenu = this.getWorldMenu();
             createjs.Tween.get( worldMenu )
-                .to( { y: 545}, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintOut );
+                .to( { y: WORLD.getStage().canvas.height - CONFIG.MENU_Y_OFFSET - CONFIG.BUTTON_HEIGHT / 2 }, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintOut );
         }
     };
     
@@ -83,14 +92,15 @@ var TerritoryWorldIdle = function()
         container.y = (currentPointerY - y) + currentTargetY;
         
         // cap the boundaries if the background gets outside of the stage.
-        if( container.x < -200 )
-            container.x = -200;
+        var canvas = this.getCanvas();
+        if( container.x < canvas.width - CONFIG.BACKGROUND_WIDTH )
+            container.x = canvas.width - CONFIG.BACKGROUND_WIDTH ;
                         
         if( container.x > 0 )
             container.x = 0;
                         
-        if( container.y < -400 )
-            container.y = -400;
+        if( container.y < canvas.height - CONFIG.BACKGROUND_HEIGHT )
+            container.y = canvas.height - CONFIG.BACKGROUND_HEIGHT;
                         
         if( container.y > 0 )
             container.y = 0;
@@ -103,7 +113,7 @@ var TerritoryWorldIdle = function()
         if( ! createjs.Tween.hasActiveTweens( worldMenu ) )
         {
             createjs.Tween.get( worldMenu )
-                .to( { y: 700 }, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintIn );
+                .to( { y: WORLD.getStage().canvas.height + CONFIG.BUTTON_HEIGHT / 2 }, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintIn );
         }
     };
     

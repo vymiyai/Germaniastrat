@@ -12,6 +12,7 @@ CONFIG.BUTTON_STROKE_COLOR      = "DimGray";
 CONFIG.BUTTON_FILL_COLOR        = "gray";
 CONFIG.BUTTON_LABEL_COLOR       = "DimGray";
 CONFIG.MENU_TWEEN_TIME          = 200;
+CONFIG.MENU_Y_OFFSET            = 5;
 
 // background configuration.
 CONFIG.BACKGROUND_HEIGHT        = 1000;
