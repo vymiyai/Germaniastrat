@@ -35,6 +35,11 @@
     </head>
     
     <body onLoad="init();">
+    
+    	<canvas id="STAGE" width="480" height="800" style="background-color: black;">
+            Your Webkit version is not compatible with canvas...
+    	</canvas>
+    	
       	<script>
       	    var card = new Card( RIFLEMAN_UNIT );
       	    var unit1 = new Unit( card );
@@ -69,32 +74,58 @@
             var y = 0;
             
             // global variable that contains eveything...
+            var stage = new createjs.Stage( "STAGE" );
+            var GERMANIA = new Germania( stage );
             var WORLD;
-            var GERMANIA = new Germania();
             
             // profiler instance.
             var PROFILER = new Profiler();
             
-            // the resolver id to be stopped when pausing the game.
-            var INTERVAL_ID = null;
             
-            // delete the test profile if it exists and start a new profile.
-            if( PROFILER.loadProfile( "PROFILE" ) )
-                PROFILER.deleteProfile( "PROFILE" );
+            
+            if( true )
+            {
+                // setup dummy profiles for the main menu.
+                var profile0 = { timestamp:0, act:0 };
+                var profile1 = { timestamp:1, act:1 };
+                var profile2 = { timestamp:2, act:2 };
                 
-            //PROFILER.saveProfile( "PROFILE", {} );
+                var profiles = [ "PROFILE_0", "PROFILE_1", "PROFILE_2" ];
+                
+                PROFILER.saveProfile( "PROFILES", profiles );
+                PROFILER.saveProfile( "PROFILE_0", profile0 );
+                PROFILER.saveProfile( "PROFILE_1", profile1 );
+                PROFILER.saveProfile( "PROFILE_2", profile2 );
+                
+                //PROFILER.saveProfile( "PROFILE", {} );
+                //PROFILER.loadProfile( "PROFILE" ) )
+                //PROFILER.deleteProfile( "PROFILE" );
+            }
+                
+                
+                
+                
+                
+            
             
             var init = function() 
             {
-                // create a new stage (canvas).
-                var stage = new createjs.Stage( "STAGE" );
+                // the "curtain" rectangle that will simulate the fade effects.
+                var curtain = new createjs.Shape();
+                curtain.name = "CURTAIN";
+                curtain.graphics.beginStroke( "black" )
+                    .beginFill( "black" )
+                    .drawRect( 0, 0, stage.canvas.width, stage.canvas.height );
+                stage.addChild( curtain );
                 
+                // set desired FPS.
+                createjs.Ticker.setFPS( CONFIG.FPS );
+                
+                // update canvas a each tick.
                 var tick = function( evt )
                 {
                     stage.update( evt );
                 };
-                
-                createjs.Ticker.setFPS( CONFIG.FPS );
                 createjs.Ticker.addEventListener( "tick", tick );
 
                 // enable touch events.
@@ -103,17 +134,130 @@
                 // to get onMouseOver & onMouseOut events, we need to enable them on the stage:
                 stage.enableMouseOver();
                 
-                
+                /*
                 // instantiate and initialize the world.
                 var context = PROFILER.loadProfile( "PROFILE" );
-                WORLD = GERMANIA.getWorld( context, stage );
+                WORLD = GERMANIA.getWorld( context );
                 WORLD.START();
+                */
+                
+                
+                // the main menu container.
+                var container       = new createjs.Container();
+                container.name      = "MAIN MENU CONTAINER"
+                container.y         = stage.canvas.height;
+                stage.addChild( container );
+                
+                // set the curtain to be above the main menu container.
+                stage.setChildIndex( curtain, 1 );
+                
+                // the menu background. will probably be an image.
+                var background      = new createjs.Shape();
+                background.name     = "MAIN MENU BACKGROUND";
+                background.graphics.beginStroke( CONFIG.BACKGROUND_STROKE_COLOR )
+                    .beginFill( CONFIG.BACKGROUND_FILL_COLOR )
+                    .drawRect( 0, 0, stage.canvas.width, stage.canvas.height );
+                container.addChild( background );
+                
+                // the main menu's level 1 container.
+                var level1          = new createjs.Container();
+                level1.name         = "MAIN MENU LEVEL 1 CONTAINER"
+                container.addChild( level1 );
+                
+                // new game button.
+                var newGameButton   = new createjs.Shape();
+                newGameButton.name  = "MAIN MENU NEW GAME BUTTON";
+                newGameButton.graphics.beginStroke( CONFIG.BUTTON_STROKE_COLOR )
+                    .beginFill( CONFIG.BUTTON_FILL_COLOR )
+                    .drawRect( -CONFIG.BUTTON_WIDTH/2, -CONFIG.BUTTON_HEIGHT/2, CONFIG.BUTTON_WIDTH, CONFIG.BUTTON_HEIGHT );
+                newGameButton.x     = stage.canvas.width/2;
+                newGameButton.y     = stage.canvas.height/2;
+                level1.addChild( newGameButton );
+                
+                // main menu's dismiss animation.
+                // TODO assign a new game's context for this button.
+                var onClick = function()
+                {
+                    // bring curtain to the front.
+                    stage.setChildIndex( curtain, 1 );
+                    
+                    // fade out the main menu.
+                    createjs.Tween.get( curtain )
+                        .wait( 200 )
+                        .to( { alpha:1 }, 1200 );
+                    
+                    // move the "camera" up.
+                    createjs.Tween.get( container )
+                        .to( { y:stage.canvas.height }, 1500, createjs.Ease.quintInOut );
+                };
+                newGameButton.on( "click", onClick );
+                
+                // add the load game button if there are saved profiles.
+                var profileList = PROFILER.loadProfile( "PROFILES" );
+                if( profileList.length > 0 )
+                {
+                    // new game button.
+                    var loadGameButton = new createjs.Shape();
+                    loadGameButton.name = "MAIN MENU LOAD GAME BUTTON";
+                    loadGameButton.graphics.beginStroke( CONFIG.BUTTON_STROKE_COLOR )
+                        .beginFill( CONFIG.BUTTON_FILL_COLOR )
+                        .drawRect( -CONFIG.BUTTON_WIDTH/2, -CONFIG.BUTTON_HEIGHT/2, CONFIG.BUTTON_WIDTH, CONFIG.BUTTON_HEIGHT );
+                    loadGameButton.x = stage.canvas.width/2;
+                    loadGameButton.y = stage.canvas.height/2 + CONFIG.BUTTON_HEIGHT;
+                    level1.addChild( loadGameButton );
+                    
+                    // the main menu's level 2 container.
+                    var level2          = new createjs.Container();
+                    level2.name         = "MAIN MENU LEVEL 2 CONTAINER"
+                    container.addChild( level2 );
+                    
+                    // instantiate a button for each profile.
+                    for( var index in profileList )
+                    {
+                        var profileName = profileList[ index ];
+                        var context     = PROFILER.loadProfile( profileName );
+                        var offset      = index * CONFIG.BUTTON_HEIGHT;
+                        
+                        // create a new profile button.
+                        var profileButton = new createjs.Shape();
+                        profileButton.name = profileName;
+                        profileButton.graphics.beginStroke( CONFIG.BUTTON_STROKE_COLOR )
+                            .beginFill( CONFIG.BUTTON_FILL_COLOR )
+                            .drawRect( -CONFIG.BUTTON_WIDTH/2, -CONFIG.BUTTON_HEIGHT/2, CONFIG.BUTTON_WIDTH, CONFIG.BUTTON_HEIGHT );
+                        profileButton.x = stage.canvas.width/2;
+                        profileButton.y = stage.canvas.height/2 + offset;
+                        level2.addChild( profileButton );
+                        
+                        // do something with this context on click.
+                    }
+                    
+                    // assign animation when the load game button is pressed.
+                    var onLoadGameButton = function()
+                    {
+                        // fade out the main menu.
+                        createjs.Tween.get( level1 )
+                            .to( { x:-CONFIG.BUTTON_WIDTH, alpha:0.3 }, 500, createjs.Ease.quintInOut )
+                            .call( function(){ container.setChildIndex( level2, 56 ); } );
+                    };
+                    loadGameButton.on( "click", onLoadGameButton );
+                }
+                
+                
+                
+                // main menu's summon animation.
+                
+                // fade in the main menu and send the curtain to the back.
+                createjs.Tween.get( curtain )
+                    .wait( 200 )
+                    .to( { alpha:0 }, 1200 )
+                    .call( function(){ stage.setChildIndex( curtain, 0 ); } );
+                
+                // move the "camera" down.
+                createjs.Tween.get( container )
+                    .to( { y:0 }, 1500, createjs.Ease.quintInOut );
+                
             };
 		
       	</script>
-
-    	<canvas id="STAGE" width="480" height="800" style="background-color: black;">
-            Your Webkit version is not compatible with canvas...
-    	</canvas>
     </body>
 </html>

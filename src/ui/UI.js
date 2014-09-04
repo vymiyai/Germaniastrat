@@ -4,15 +4,14 @@
 var UI = function( stage )
 {
     this.stage          = stage;
-    this.worldMenu      = new createjs.Container();
-    this.worldMenu.name = "WORLD MENU";
     
-    // assign the resource panel to the world menu.
     this.territoryResourcePanel = new TerritoryResourcePanel();
     
+    this.worldMenu      = new createjs.Container();
+    this.worldMenu.name = "WORLD MENU";
+    this.worldMenu.x    = this.stage.canvas.width/2;
+    this.worldMenu.y    = this.stage.canvas.height + CONFIG.BUTTON_HEIGHT / 2;
     this.worldMenu.addChild( this.territoryResourcePanel.getShape() );
-    this.worldMenu.x = this.stage.canvas.width/2;
-    this.worldMenu.y = this.stage.canvas.height + CONFIG.BUTTON_HEIGHT / 2;
     
     this.stage.addChild( this.worldMenu );
     

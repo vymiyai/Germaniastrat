@@ -1,9 +1,11 @@
 "use strict";
 
 // the container of everything, top-most level of the application.
-var Germania = function()
+var Germania = function( stage )
 {
-    this.getWorld = function( context, stage )
+    this.stage = stage;
+    
+    this.getWorld = function( context )
     {
         // the main container object.
         var container = new createjs.Container();
@@ -15,10 +17,15 @@ var Germania = function()
         background.graphics.beginStroke( CONFIG.BACKGROUND_STROKE_COLOR )
             .beginFill( CONFIG.BACKGROUND_FILL_COLOR )
             .drawRect( 0, 0, CONFIG.BACKGROUND_WIDTH, CONFIG.BACKGROUND_HEIGHT );
-        
+            
         container.addChild( background );
-        stage.addChild( container );
-
-        return new World( context, stage );
+        this.stage.addChild( container );
+        
+        return new World( context, this.stage );
+    };
+    
+    this.getMainMenu = function()
+    {
+        
     };
 };

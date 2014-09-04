@@ -8,7 +8,7 @@ CONFIG.RESOLVE_INTERVAL         = 500;
 
 // world menu configuratons.
 CONFIG.BUTTON_HEIGHT            = 100;
-CONFIG.BUTTON_WIDTH             = 150;
+CONFIG.BUTTON_WIDTH             = 200;
 CONFIG.BUTTON_STROKE_COLOR      = "DimGray";
 CONFIG.BUTTON_FILL_COLOR        = "gray";
 CONFIG.BUTTON_LABEL_COLOR       = "DimGray";
