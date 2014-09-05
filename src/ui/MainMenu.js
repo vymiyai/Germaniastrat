@@ -22,7 +22,7 @@ var MainMenu = function()
     
     // members of level 2.
     this.level2         = null;
-    this.profiles       = [];
+    this.profileButtons = [];
     this.backButton     = null;
     
     // the main menu container.
@@ -63,15 +63,16 @@ var MainMenu = function()
         var loadGameButton  = new MainMenuButton( "LOAD GAME" );
         loadGameButton.getShape().x    = CANVAS.width/2;
         loadGameButton.getShape().y    = CANVAS.height/2 + BUTTON_HEIGHT;
-        loadGameButton.setState( null );
+        loadGameButton.setState( new LoadGameState( null ) );
         this.loadGameButton = loadGameButton;
         this.level1.addChild( this.loadGameButton.getShape() );
         
         // instantiate the main menu's level 2.
         var level2          = new createjs.Container();
         level2.name         = "MAIN MENU LEVEL 2 CONTAINER";
+        level2.alpha        = 0;
         this.level2         = level2;
-        //this.shape.addChild( this.level2 );
+        this.shape.addChildAt( this.level2, 0 );
         
         // instantiate a button for each profile.
         var index;
@@ -83,18 +84,19 @@ var MainMenu = function()
             var offset      = index * BUTTON_HEIGHT;
                         
             // create a new profile button.
-            var profileButton = new MainMenuButton( profileName );
-            profileButton.getShape().y = CANVAS.height/2 + offset;
-            profileButton.setState( new StartProfileState( context ) );
-            this.profiles.push( profileButton );
+            var profileButton           = new MainMenuButton( profileName );
+            profileButton.getShape().x  = CANVAS.width/2;
+            profileButton.getShape().y  = CANVAS.height/2 + offset;
+            profileButton.setState( new DummyState( context ) );
+            this.profileButtons.push( profileButton );
             this.level2.addChild( profileButton.getShape() );
         }
         
         // instantiate the back button to return to level 1.
         var backButton          = new MainMenuButton( "BACK" );
         backButton.getShape().x = CANVAS.width/2;
-        backButton.getShape().y = CANVAS.height/2 + ( BUTTON_HEIGHT * index );
-        backButton.setState( null );
+        backButton.getShape().y = CANVAS.height/2 + ( BUTTON_HEIGHT * ( profileList.length ) );
+        backButton.setState( new BackState( null ) );
         this.backButton         = backButton;
         this.level2.addChild( this.backButton.getShape() );
     }

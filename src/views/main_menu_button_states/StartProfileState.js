@@ -14,11 +14,21 @@ var StartProfileState = function( context )
         createjs.Tween.get( GERMANIA.CURTAIN )
             .wait( 200 )
             .to( { alpha:1 }, 1200 );
+            
+        // f@cking closure...
+        var callback = function( ctx )
+        {
+            return function()
+            {
+                GERMANIA.loadWorld( ctx ); 
+                GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 );
+            };
+        };
                     
         // move the "camera" up, instantiate the world based on the given context and send curtain to background.
         createjs.Tween.get( GERMANIA.MAIN_MENU.getShape() )
             .to( { y:stage.canvas.height }, 1500, createjs.Ease.quintInOut )
-            .call( function(){ GERMANIA.loadWorld( this.context ); GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 ); } );
+            .call( callback( this.context ) );
     };
     
 };

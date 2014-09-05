@@ -40,6 +40,12 @@ var MainMenuButton = function( name )
     
     // set the event listener to process events in the state implementation.
     this.shape.on( "click", function( evt, data ){ data.state.onClick( evt, data ); }, null, false, this );
+
+    // returns this button's state.
+    this.getState = function()
+    {
+        return this.state;
+    };
     
     // set this button's state.
     this.setState = function( state )
