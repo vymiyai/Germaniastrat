@@ -13,7 +13,7 @@ var TerritoryWorldIdle = function()
     this.getWorldMenu = function()
     {
         if( this.worldMenu === null )
-            this.worldMenu = WORLD.getStage().getChildByName( "WORLD MENU" );
+            this.worldMenu = GERMANIA.STAGE.getChildByName( "WORLD MENU" );
         
         return this.worldMenu;
     };
@@ -21,7 +21,7 @@ var TerritoryWorldIdle = function()
     this.getWorldContainer = function()
     {
         if( this.worldContainer === null )
-            this.worldContainer = WORLD.getStage().getChildByName( "WORLD CONTAINER" );
+            this.worldContainer = GERMANIA.STAGE.getChildByName( "WORLD CONTAINER" );
         
         return this.worldContainer;
     };
@@ -29,7 +29,7 @@ var TerritoryWorldIdle = function()
     this.getCanvas = function()
     {
         if( this.canvas === null )
-            this.canvas = WORLD.getStage().canvas;
+            this.canvas = GERMANIA.STAGE.canvas;
             
         return this.canvas;
     };
@@ -40,27 +40,27 @@ var TerritoryWorldIdle = function()
         if( this.shouldShowMenu )
         {
             // assign the territory resource panel with the "data" territory as a target.
-            WORLD.getUI().getTerritoryResourcePanel().setReferencedTerritory( data.model );
-            WORLD.resolve( new Date().getTime() );
+            GERMANIA.WORLD.getUI().getTerritoryResourcePanel().setReferencedTerritory( data.model );
+            GERMANIA.WORLD.resolve( new Date().getTime() );
             
             // summon menu.
             var worldMenu = this.getWorldMenu();
             createjs.Tween.get( worldMenu )
-                .to( { y: WORLD.getStage().canvas.height - CONFIG.MENU_Y_OFFSET - CONFIG.BUTTON_HEIGHT / 2 }, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintOut );
+                .to( { y: GERMANIA.WORLD.getStage().canvas.height - GERMANIA.CONFIG.MENU_Y_OFFSET - GERMANIA.CONFIG.BUTTON_HEIGHT / 2 }, GERMANIA.CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintOut );
         }
     };
     
     this.onMouseOver = function( evt, data )
     {
         evt.target.getStage().getChildByName( "DEBUG TEXT" ).text = "evt.target: "+evt.target+", evt.type: "+evt.type+", view: "+data.name;
-        evt.target.graphics.beginFill( "LightGray" ).drawRect( -CONFIG.TERRITORY_WIDTH/2, -CONFIG.TERRITORY_HEIGHT/2, CONFIG.TERRITORY_WIDTH, CONFIG.TERRITORY_HEIGHT );
+        evt.target.graphics.beginFill( "LightGray" ).drawRect( -GERMANIA.CONFIG.TERRITORY_WIDTH/2, -GERMANIA.CONFIG.TERRITORY_HEIGHT/2, GERMANIA.CONFIG.TERRITORY_WIDTH, GERMANIA.CONFIG.TERRITORY_HEIGHT );
         evt.target.getStage().update();
     };
     
     this.onMouseOut = function( evt, data )
     {
         evt.target.getStage().getChildByName( "DEBUG TEXT" ).text = "evt.target: "+evt.target+", evt.type: "+evt.type+", view: "+data.name;
-        evt.target.graphics.beginFill( "gray" ).drawRect( -CONFIG.TERRITORY_WIDTH/2, -CONFIG.TERRITORY_HEIGHT/2, CONFIG.TERRITORY_WIDTH, CONFIG.TERRITORY_HEIGHT );
+        evt.target.graphics.beginFill( "gray" ).drawRect( -GERMANIA.CONFIG.TERRITORY_WIDTH/2, -GERMANIA.CONFIG.TERRITORY_HEIGHT/2, GERMANIA.CONFIG.TERRITORY_WIDTH, GERMANIA.CONFIG.TERRITORY_HEIGHT );
         evt.target.getStage().update();
     };
     
@@ -93,14 +93,14 @@ var TerritoryWorldIdle = function()
         
         // cap the boundaries if the background gets outside of the stage.
         var canvas = this.getCanvas();
-        if( container.x < canvas.width - CONFIG.BACKGROUND_WIDTH )
-            container.x = canvas.width - CONFIG.BACKGROUND_WIDTH ;
+        if( container.x < canvas.width - GERMANIA.CONFIG.BACKGROUND_WIDTH )
+            container.x = canvas.width - GERMANIA.CONFIG.BACKGROUND_WIDTH ;
                         
         if( container.x > 0 )
             container.x = 0;
                         
-        if( container.y < canvas.height - CONFIG.BACKGROUND_HEIGHT )
-            container.y = canvas.height - CONFIG.BACKGROUND_HEIGHT;
+        if( container.y < canvas.height - GERMANIA.CONFIG.BACKGROUND_HEIGHT )
+            container.y = canvas.height - GERMANIA.CONFIG.BACKGROUND_HEIGHT;
                         
         if( container.y > 0 )
             container.y = 0;
@@ -113,7 +113,7 @@ var TerritoryWorldIdle = function()
         if( ! createjs.Tween.hasActiveTweens( worldMenu ) )
         {
             createjs.Tween.get( worldMenu )
-                .to( { y: WORLD.getStage().canvas.height + CONFIG.BUTTON_HEIGHT / 2 }, CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintIn );
+                .to( { y: GERMANIA.STAGE.canvas.height + GERMANIA.CONFIG.BUTTON_HEIGHT / 2 }, GERMANIA.CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintIn );
         }
     };
     

@@ -5,8 +5,8 @@ var TerritoryM = function( name )
 {
     // static values.
     this.name           = name;
-    this.attributes     = TERRITORIES[ name ];
-    this.typeAttributes = TERRITORY_TYPES[ this.attributes.type ];
+    this.attributes     = GERMANIA.TERRITORIES[ name ];
+    this.typeAttributes = GERMANIA.TERRITORY_TYPES[ this.attributes.type ];
     
     // dynamic values.
     this.timestamp  = new Date().getTime();

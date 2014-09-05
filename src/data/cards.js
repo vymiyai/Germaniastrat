@@ -12,7 +12,7 @@
 
 var CARDS = {};
 
-var RIFLEMAN_UNIT = {   name:"Rifleman Unit", 
+CARDS.RIFLEMAN_UNIT = { name:"Rifleman Unit", 
                         type:"infantry", 
                         apDam:2, 
                         atDam:0, 

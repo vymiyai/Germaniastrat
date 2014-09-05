@@ -10,7 +10,7 @@ var UI = function( stage )
     this.worldMenu      = new createjs.Container();
     this.worldMenu.name = "WORLD MENU";
     this.worldMenu.x    = this.stage.canvas.width/2;
-    this.worldMenu.y    = this.stage.canvas.height + CONFIG.BUTTON_HEIGHT / 2;
+    this.worldMenu.y    = this.stage.canvas.height + GERMANIA.CONFIG.BUTTON_HEIGHT / 2;
     this.worldMenu.addChild( this.territoryResourcePanel.getShape() );
     
     this.stage.addChild( this.worldMenu );

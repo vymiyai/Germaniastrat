@@ -48,9 +48,10 @@ var World = function( context, stage )
     };
     
     // starts the world through setup of the global resolve interval.
-    this.START = function()
+    this.start = function()
     {
-        this.INTERVAL_ID = window.setInterval( function(){ WORLD.resolve( new Date().getTime() ); }, CONFIG.RESOLVE_INTERVAL );
+        this.INTERVAL_ID = window.setInterval( function(){ GERMANIA.WORLD.resolve( new Date().getTime() ); }, GERMANIA.CONFIG.RESOLVE_INTERVAL );
     };
     
+    this.start();
 };
