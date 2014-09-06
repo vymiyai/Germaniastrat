@@ -12,6 +12,7 @@ var Germania = function( stage )
     
     // the global variables...
     this.STAGE      = stage;
+    this.CONTEXT    = {};
     this.PROFILER   = new Profiler();
     this.CURTAIN    = null;
     this.MAIN_MENU  = null;
@@ -34,11 +35,11 @@ var Germania = function( stage )
         var height      = this.CONFIG.BACKGROUND_HEIGHT;
         
         // the main container object.
-        var container = new createjs.Container();
-        container.name = "WORLD CONTAINER"
+        var container   = new createjs.Container();
+        container.name  = "WORLD CONTAINER"
         
         // the background that determines the scrollable area.
-        var background = new createjs.Shape();
+        var background  = new createjs.Shape();
         background.name = "BACKGROUND";
         background.graphics.beginStroke( strokeColor )
             .beginFill( fillColor )
@@ -47,7 +48,13 @@ var Germania = function( stage )
         container.addChild( background );
         this.STAGE.addChild( container );
         
-        this.WORLD = new World( context, this.STAGE );
+        // edit context so that the current timestamp will substitute the previous timestamp.
+        context.timestamp       = new Date().getTime();
+        this.WORLD              = new World( context, this.STAGE );
+        this.WORLD.lastResolve  = context.timestamp;
+        
+        // keep a reference to the new current context.
+        this.CONTEXT            = context;
     };
     
     // GAME START!

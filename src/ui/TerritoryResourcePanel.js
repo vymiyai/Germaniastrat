@@ -15,24 +15,26 @@ var TerritoryResourcePanel = function()
     // create the panel view.
     this.panel          = new createjs.Shape();
     this.panel.name     = "TERRITORY RESOURCE PANEL";
-    this.panel.graphics.beginStroke( GERMANIA.CONFIG.BUTTON_STROKE_COLOR ).beginFill( GERMANIA.CONFIG.BUTTON_FILL_COLOR ).drawRect( -this.width/2, -this.height/2, this.width, this.height );
+    this.panel.graphics.beginStroke( GERMANIA.CONFIG.BUTTON_STROKE_COLOR )
+        .beginFill( GERMANIA.CONFIG.BUTTON_FILL_COLOR )
+        .drawRect( -this.width/2, -this.height/2, this.width, this.height );
     this.container.addChild( this.panel );
     
     // create the label.
-    this.label          = new createjs.Text( "\n\nSELECT A \nTERRITORY\n\n" );
+    this.label          = new createjs.Text( "TERRITORY\n\n\n" );
     this.label.name     = "TERRITORY RESOURCE PANEL LABEL";
-    this.label.color    = GERMANIA.CONFIG.BUTTON_LABEL_COLOR;
+    this.label.color    = GERMANIA.CONFIG.BUTTON_STROKE_COLOR;
     this.label.x        = -this.label.getMeasuredWidth()/2;
     this.label.y        = -this.label.getMeasuredHeight()/2;
     this.container.addChild( this.label );
-    
+
     this.update = function()
     {
         // update label only if the territory model has been set.
         if( this.territoryModel !== null )
         {
             var resources   = this.territoryModel.getStatus().resources;
-            this.label.text = this.territoryModel.getName() + "\n\nFOOD " + resources.food + "\nAMMO " + resources.ammo + "\nFUEL " + resources.fuel;
+            this.label.text = this.territoryModel.getName() + "\nFOOD " + resources.food + "\nAMMO " + resources.ammo + "\nFUEL " + resources.fuel;
         }
     };
     

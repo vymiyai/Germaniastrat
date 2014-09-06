@@ -9,16 +9,20 @@ var UI = function( stage )
     
     this.worldMenu      = new createjs.Container();
     this.worldMenu.name = "WORLD MENU";
-    this.worldMenu.x    = this.stage.canvas.width/2;
-    this.worldMenu.y    = this.stage.canvas.height + GERMANIA.CONFIG.BUTTON_HEIGHT / 2;
+
     this.worldMenu.addChild( this.territoryResourcePanel.getShape() );
     
     this.stage.addChild( this.worldMenu );
     
+    var enterEscaveButton = new WorldMenuButton( "ENTER ESCAVE" );
+    enterEscaveButton.setState( new DummyState( null ) );
+    enterEscaveButton.getShape().x = GERMANIA.CONFIG.BUTTON_WIDTH;
+    this.enterEscaveButton = enterEscaveButton;
+    this.worldMenu.addChild( this.enterEscaveButton.getShape() );
     
-    
-    
-    
+    // set menu position.
+    this.worldMenu.x    = this.stage.canvas.width/2 - this.worldMenu.getBounds().width/2;;
+    this.worldMenu.y    = this.stage.canvas.height + GERMANIA.CONFIG.BUTTON_HEIGHT / 2;
     
     
     // text box from the tutorials.

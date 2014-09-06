@@ -53,5 +53,6 @@ var World = function( context, stage )
         this.INTERVAL_ID = window.setInterval( function(){ GERMANIA.WORLD.resolve( new Date().getTime() ); }, GERMANIA.CONFIG.RESOLVE_INTERVAL );
     };
     
+    // GAME START!
     this.start();
 };
