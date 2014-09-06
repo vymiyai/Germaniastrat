@@ -52,14 +52,12 @@ var TerritoryWorldIdle = function()
     
     this.onMouseOver = function( evt, data )
     {
-        evt.target.getStage().getChildByName( "DEBUG TEXT" ).text = "evt.target: "+evt.target+", evt.type: "+evt.type+", view: "+data.name;
         evt.target.graphics.beginFill( "LightGray" ).drawRect( -GERMANIA.CONFIG.TERRITORY_WIDTH/2, -GERMANIA.CONFIG.TERRITORY_HEIGHT/2, GERMANIA.CONFIG.TERRITORY_WIDTH, GERMANIA.CONFIG.TERRITORY_HEIGHT );
         evt.target.getStage().update();
     };
     
     this.onMouseOut = function( evt, data )
     {
-        evt.target.getStage().getChildByName( "DEBUG TEXT" ).text = "evt.target: "+evt.target+", evt.type: "+evt.type+", view: "+data.name;
         evt.target.graphics.beginFill( "gray" ).drawRect( -GERMANIA.CONFIG.TERRITORY_WIDTH/2, -GERMANIA.CONFIG.TERRITORY_HEIGHT/2, GERMANIA.CONFIG.TERRITORY_WIDTH, GERMANIA.CONFIG.TERRITORY_HEIGHT );
         evt.target.getStage().update();
     };

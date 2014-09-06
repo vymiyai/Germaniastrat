@@ -3,42 +3,48 @@
 // the creator of all handlers. In a perfect world, this should be a state machine in a RESTful style...
 var UI = function( stage )
 {
+    // offset to counter the same length offset in the opposite direction in the buttons' classes.
+    var OFFSET          = GERMANIA.CONFIG.BUTTON_WIDTH/2;
+    
     this.stage          = stage;
-    
-    this.territoryResourcePanel = new TerritoryResourcePanel();
-    
-    this.worldMenu      = new createjs.Container();
-    this.worldMenu.name = "WORLD MENU";
 
+    this.worldMenu                              = new createjs.Container();
+    this.worldMenu.name                         = "WORLD MENU";
+    
+    this.territoryResourcePanel                 = new TerritoryResourcePanel();
     this.worldMenu.addChild( this.territoryResourcePanel.getShape() );
+
+    this.enterEscaveButton                      = new WorldMenuButton( "ENTER ESCAVE" );
+    this.enterEscaveButton.setState( new DummyState( null ) );
+    this.worldMenu.addChild( this.enterEscaveButton.getShape() );
     
     this.stage.addChild( this.worldMenu );
     
-    var enterEscaveButton = new WorldMenuButton( "ENTER ESCAVE" );
-    enterEscaveButton.setState( new DummyState( null ) );
-    enterEscaveButton.getShape().x = GERMANIA.CONFIG.BUTTON_WIDTH;
-    this.enterEscaveButton = enterEscaveButton;
-    this.worldMenu.addChild( this.enterEscaveButton.getShape() );
+    
+    this.calculateButtonPositions = function( numberOfChildren )
+    {
+        for( var index = 0; index < numberOfChildren; index++ )
+        {
+            var child   = this.worldMenu.getChildAt( index );
+            child.x     = index * GERMANIA.CONFIG.BUTTON_WIDTH + OFFSET
+        }
+    };
+    
+    // calculate the positions of the buttons in the menu.
+    var numberOfChildren    = this.worldMenu.getNumChildren();
+    this.calculateButtonPositions( numberOfChildren );
     
     // set menu position.
-    this.worldMenu.x    = this.stage.canvas.width/2 - this.worldMenu.getBounds().width/2;;
+    this.worldMenu.x    = this.stage.canvas.width/2 - ( GERMANIA.CONFIG.BUTTON_WIDTH * numberOfChildren )/2;
     this.worldMenu.y    = this.stage.canvas.height + GERMANIA.CONFIG.BUTTON_HEIGHT / 2;
     
-    
-    // text box from the tutorials.
-    var ui = new createjs.Text("Test press, click, mouseover, and mouseout", "14px Arial");
-    ui.name = "DEBUG TEXT";
-    ui.color = "gray";
-    ui.x = 10;
-    ui.y = 10;
-    this.ui = ui;
-    this.stage.addChild( this.ui );
-    
+    // returns the resource panel.
     this.getTerritoryResourcePanel = function()
     {
         return this.territoryResourcePanel;
     };
     
+    // updates the values shown in the menu.
     this.update = function()
     {
         this.territoryResourcePanel.update();
