@@ -7,6 +7,12 @@ var EnterEscaveState = function( context )
     
     this.onClick = function( evt, data )
     {
+        var callback = function()
+        {
+            
+        };
+        
+        // dismiss the world menu.
         GERMANIA.WORLD.getUI().dismissWorldMenu();
         
         // bring curtain to the front.
