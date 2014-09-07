@@ -15,7 +15,8 @@ var UI = function( stage )
     this.worldMenu.addChild( this.territoryResourcePanel.getShape() );
 
     this.enterEscaveButton                      = new WorldMenuButton( "ENTER ESCAVE" );
-    this.enterEscaveButton.setState( new DummyState( null ) );
+    this.enterEscaveButton.setState( new EnterEscaveState( null ) );
+    this.enterEscaveButton.getShape().on( "click", function( evt, data ){ data.state.onClick( evt, data ); }, null, false, this.enterEscaveButton );
     this.worldMenu.addChild( this.enterEscaveButton.getShape() );
     
     this.stage.addChild( this.worldMenu );

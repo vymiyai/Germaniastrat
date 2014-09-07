@@ -51,6 +51,8 @@ var World = function( context, stage )
     this.startResolve = function()
     {
         this.INTERVAL_ID = window.setInterval( function(){ GERMANIA.WORLD.resolve( new Date().getTime() ); }, GERMANIA.CONFIG.RESOLVE_INTERVAL );
+        
+        // send curtain to back.
         GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 );
     };
     
