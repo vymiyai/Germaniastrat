@@ -48,11 +48,22 @@ var World = function( context, stage )
     };
     
     // starts the world through setup of the global resolve interval.
-    this.start = function()
+    this.startResolve = function()
     {
         this.INTERVAL_ID = window.setInterval( function(){ GERMANIA.WORLD.resolve( new Date().getTime() ); }, GERMANIA.CONFIG.RESOLVE_INTERVAL );
+        GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 );
     };
     
-    // GAME START!
+    // enables the world playability.
+    this.start = function()
+    {
+        // fade in the main menu, send the curtain to the back and start the resolve routine.
+        createjs.Tween.get( GERMANIA.CURTAIN )
+            .wait( 200 )
+            .to( { alpha:0 }, 1200 )
+            .call( this.startResolve );
+    };
+    
+    // WORLD START!
     this.start();
 };

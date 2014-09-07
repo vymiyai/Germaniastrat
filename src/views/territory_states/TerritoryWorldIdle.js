@@ -43,10 +43,8 @@ var TerritoryWorldIdle = function()
             GERMANIA.WORLD.getUI().getTerritoryResourcePanel().setReferencedTerritory( data.model );
             GERMANIA.WORLD.resolve( new Date().getTime() );
             
-            // summon menu.
-            var worldMenu = this.getWorldMenu();
-            createjs.Tween.get( worldMenu )
-                .to( { y: GERMANIA.WORLD.getStage().canvas.height - GERMANIA.CONFIG.MENU_Y_OFFSET - GERMANIA.CONFIG.BUTTON_HEIGHT / 2 }, GERMANIA.CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintOut );
+            // summon world menu.
+            GERMANIA.WORLD.getUI().summonWorldMenu();
         }
     };
     
@@ -106,13 +104,8 @@ var TerritoryWorldIdle = function()
         x = currentPointerX;
         y = currentPointerY;
         
-        // dismiss menu if it is not being dismissed yet.
-        var worldMenu = this.getWorldMenu();
-        if( ! createjs.Tween.hasActiveTweens( worldMenu ) )
-        {
-            createjs.Tween.get( worldMenu )
-                .to( { y: GERMANIA.STAGE.canvas.height + GERMANIA.CONFIG.BUTTON_HEIGHT / 2 }, GERMANIA.CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintIn );
-        }
+        // dismiss world menu.
+        GERMANIA.WORLD.getUI().dismissWorldMenu();
     };
     
 };

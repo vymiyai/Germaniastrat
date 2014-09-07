@@ -1,12 +1,12 @@
 "use strict";
 
-// the creator of all handlers. In a perfect world, this should be a state machine in a RESTful style...
+// in a perfect world, this should be a state machine in a RESTful style...
 var UI = function( stage )
 {
+    this.stage          = stage;
+    
     // offset to counter the same length offset in the opposite direction in the buttons' classes.
     var OFFSET          = GERMANIA.CONFIG.BUTTON_WIDTH/2;
-    
-    this.stage          = stage;
 
     this.worldMenu                              = new createjs.Container();
     this.worldMenu.name                         = "WORLD MENU";
@@ -49,6 +49,28 @@ var UI = function( stage )
     {
         this.territoryResourcePanel.update();
     };
+    
+    
+    
+    this.summonWorldMenu = function()
+    {
+        var desiredY = GERMANIA.WORLD.getStage().canvas.height - GERMANIA.CONFIG.MENU_Y_OFFSET - GERMANIA.CONFIG.BUTTON_HEIGHT / 2;
+        
+        createjs.Tween.get( this.worldMenu )
+            .to( { y: desiredY }, GERMANIA.CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintOut );
+    };
+    
+    this.dismissWorldMenu = function()
+    {
+        if( ! createjs.Tween.hasActiveTweens( this.worldMenu ) )
+        {
+            var desiredY = GERMANIA.STAGE.canvas.height + GERMANIA.CONFIG.BUTTON_HEIGHT / 2;
+            
+            createjs.Tween.get( this.worldMenu )
+                .to( { y: desiredY }, GERMANIA.CONFIG.MENU_TWEEN_TIME, createjs.Ease.quintIn );
+        }
+    };
+    
 };
 
 // minimalism

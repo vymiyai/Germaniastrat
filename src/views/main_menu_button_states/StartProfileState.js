@@ -20,8 +20,11 @@ var StartProfileState = function( context )
         {
             return function()
             {
-                GERMANIA.loadWorld( ctx ); 
-                GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 );
+                GERMANIA.loadWorld( ctx );
+                
+                // remove the main menu from the stage and free the menu's reference from Germania class.
+                GERMANIA.STAGE.removeChild( GERMANIA.MAIN_MENU.getShape() );
+                GERMANIA.MAIN_MENU  = null;
             };
         };
                     

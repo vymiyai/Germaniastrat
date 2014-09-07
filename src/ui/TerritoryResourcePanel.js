@@ -11,6 +11,8 @@ var TerritoryResourcePanel = function()
     this.label          = null;
     this.container      = new createjs.Container();
     this.container.name = "TERRITORY RESOURCE PANEL CONTAINER";
+    // set a dummy event listener to intercept clicks.
+    this.container.on( "click", function( evt, data ){}, null, false );
     
     // create the panel view.
     this.panel          = new createjs.Shape();

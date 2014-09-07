@@ -24,6 +24,8 @@ var Germania = function( stage )
     curtain.graphics.beginStroke( "gray" )
         .beginFill( "black" )
         .drawRect( 0, 0, this.STAGE.canvas.width, this.STAGE.canvas.height );
+    // set an empty event handler to intercept clicks while the curtain is in front of the viewport.
+    curtain.on( "click", function( evt, data ){}, null, false );
     this.CURTAIN    = curtain;
     this.STAGE.addChild( this.CURTAIN );
     
@@ -34,9 +36,10 @@ var Germania = function( stage )
         var width       = this.CONFIG.BACKGROUND_WIDTH;
         var height      = this.CONFIG.BACKGROUND_HEIGHT;
         
-        // the main container object.
+        // instantiate the main container object and insert the world container behind the curtain.
         var container   = new createjs.Container();
         container.name  = "WORLD CONTAINER"
+        this.STAGE.addChildAt( container, 0 );
         
         // the background that determines the scrollable area.
         var background  = new createjs.Shape();
@@ -44,9 +47,7 @@ var Germania = function( stage )
         background.graphics.beginStroke( strokeColor )
             .beginFill( fillColor )
             .drawRect( 0, 0, width, height);
-            
         container.addChild( background );
-        this.STAGE.addChild( container );
         
         // edit context so that the current timestamp will substitute the previous timestamp.
         context.timestamp       = new Date().getTime();
