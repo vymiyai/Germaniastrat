@@ -15,17 +15,17 @@ var Escave = function()
     this.exitButton     = null;
 
     // the main menu container.
-    var container           = new createjs.Container();
+    var container       = new createjs.Container();
     container.name      = this.name;
-    container.y         = CANVAS.height;
     this.shape          = container;
     
     // the menu background. will probably be an image.
     var background      = new createjs.Shape();
-    background.name     = "MAIN MENU BACKGROUND";
+    background.name     = "ESCAVE BACKGROUND";
     background.graphics.beginStroke( BG_STROKE_COLOR )
         .beginFill( BG_FILL_COLOR )
         .drawRect( 0, 0, CANVAS.width, CANVAS.height );
+    background.on( "click", function( evt, data ){}, null, false );
     this.background     = background;
     this.shape.addChild( this.background );   
 
@@ -33,16 +33,13 @@ var Escave = function()
     var exitButton          = new MainMenuButton( "EXIT ESCAVE" );
     exitButton.getShape().x = CANVAS.width/2;
     exitButton.getShape().y = CANVAS.height/2;
-    exitButton.setState( new DummyState( null ) );
+    exitButton.setState( new ExitEscaveState( null ) );
     this.exitButton         = exitButton;
     this.shape.addChild( this.exitButton.getShape() );
 
     // calls the initial animation. TO THE ESCAVE YOU GO!
     this.start = function()
     {
-        // bring curtain to front;
-        GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 1 );
-    
         // fade in the main menu and send the curtain to the back.
         createjs.Tween.get( GERMANIA.CURTAIN )
             .wait( 200 )

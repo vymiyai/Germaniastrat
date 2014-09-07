@@ -8,6 +8,8 @@ var World = function( context, stage )
     this.model          = new WorldM( context );
     this.view           = new WorldV( this.model, this.stage );
     
+    this.escave         = null;
+    
     this.INTERVAL_ID    = null;
     this.lastResolve    = 0;
     
