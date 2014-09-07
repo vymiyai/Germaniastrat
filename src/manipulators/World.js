@@ -52,10 +52,25 @@ var World = function( context, stage )
     // starts the world through setup of the global resolve interval.
     this.startResolve = function()
     {
-        this.INTERVAL_ID = window.setInterval( function(){ GERMANIA.WORLD.resolve( new Date().getTime() ); }, GERMANIA.CONFIG.RESOLVE_INTERVAL );
+        // assign the current timestamp.
+        this.lastResolve    = new Date().getTime();
+        this.INTERVAL_ID    = window.setInterval( function(){ GERMANIA.WORLD.resolve( new Date().getTime() ); }, GERMANIA.CONFIG.RESOLVE_INTERVAL );
+    };
+    
+    // stops the global resolve interval.
+    this.stopResolve = function()
+    {
+        // stop the global resolve interval.
+        window.clearInterval( this.INTERVAL_ID );
         
-        // send curtain to back.
-        GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 );
+        // resolve for the last time to level all models to the same timestamp.
+        var currentTimestamp    = new Date().getTime();
+        GERMANIA.WORLD.resolve( currentTimestamp );
+        
+        // store the new timestamp.
+        this.lastResolve        = currentTimestamp;
+        
+        // from here, the game can be saved in a safe state.
     };
     
     // enables the world playability.
@@ -65,7 +80,8 @@ var World = function( context, stage )
         createjs.Tween.get( GERMANIA.CURTAIN )
             .wait( 200 )
             .to( { alpha:0 }, 1200 )
-            .call( this.startResolve );
+            .call( function(){ GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 ); } )
+            .call( this.startResolve, null, this );
     };
     
     // WORLD START!

@@ -12,9 +12,11 @@ var ExitEscaveState = function( context )
             // send curtain to back.
             GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 2 );
             
-            // reativar o timeout_interval...
+            // free memory from stage and world.
             GERMANIA.STAGE.removeChild( GERMANIA.WORLD.escave.getShape() );
             GERMANIA.WORLD.escave = null;
+            
+            // restart the global resolves and return to the world.
             GERMANIA.WORLD.start();
         };
         

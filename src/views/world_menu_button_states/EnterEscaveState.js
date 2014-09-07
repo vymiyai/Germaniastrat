@@ -9,15 +9,16 @@ var EnterEscaveState = function( context )
     {
         var callback = function()
         {
-            // parar o timeout interval.
-            
-            // largar um resolve pra um timestamp conhecido.
-            
-            // carregar Escave.
+            // load Escave GUI.
             GERMANIA.WORLD.escave = new Escave();
             GERMANIA.STAGE.addChildAt( GERMANIA.WORLD.escave.getShape(), 1 );
+            
+            // start the entrance animation.
             GERMANIA.WORLD.escave.start();
         };
+        
+        // halt global resolves.
+        GERMANIA.WORLD.stopResolve();
         
         // dismiss the world menu.
         GERMANIA.WORLD.getUI().dismissWorldMenu();
