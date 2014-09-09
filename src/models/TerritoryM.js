@@ -1,7 +1,7 @@
 "use strict";
 
 // class that represents the data part of a territory to be presented in a map.
-var TerritoryM = function( name )
+var TerritoryM = function( lastResolve, name )
 {
     // static values.
     this.name           = name;
@@ -9,13 +9,12 @@ var TerritoryM = function( name )
     this.typeAttributes = GERMANIA.TERRITORY_TYPES[ this.attributes.type ];
     
     // dynamic values.
-    this.timestamp  = new Date().getTime();
-    this.resources  = { food: 0, ammo: 0, fuel: 0 };
+    this.timestamp      = lastResolve;
+    this.resources      = { food: 0, ammo: 0, fuel: 0 };
     
     // initializes this instance with an instance description.
     this.init = function( territoryContext )
     {
-        this.timestamp = territoryContext.timestamp;
         this.resources = territoryContext.resources;
     };
     
@@ -26,11 +25,10 @@ var TerritoryM = function( name )
         // retrieve last timestamp.
         var lastTimestamp = this.timestamp;
         
-        // update the current timestamp.
-        this.timestamp = timestamp;
-        
         // calculate the time passed since the last timestamp.
-        var timePassed = this.timestamp - lastTimestamp;
+        var timePassed = timestamp - lastTimestamp;
+        var resourcesToBeAdded = timePassed/1000;
+        
         
         // calculate the amount of each resources that was produced or consumed during this time period.
         // TODO
@@ -39,7 +37,7 @@ var TerritoryM = function( name )
         // TODO
         
         // update resources.
-        this.resources = { food: this.resources.food + timePassed, ammo: this.resources.ammo + timePassed, fuel: this.resources.fuel + timePassed };
+        this.resources = { food: this.resources.food + resourcesToBeAdded, ammo: this.resources.ammo + resourcesToBeAdded, fuel: this.resources.fuel + resourcesToBeAdded };
     };
     
     // returns the name of this territory.

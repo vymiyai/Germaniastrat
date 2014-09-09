@@ -3,15 +3,17 @@
 // the container for virtually anything realted to the strategic/management part of the application.
 var World = function( context, stage )
 {
+    this.INTERVAL_ID    = null;
+    this.lastResolve    = new Date().getTime();    
+    
     this.stage          = stage;
     this.ui             = new UI( this.stage );
-    this.model          = new WorldM( context );
+    this.model          = new WorldM( this.lastResolve, context );
     this.view           = new WorldV( this.model, this.stage );
     
     this.escave         = null;
     
-    this.INTERVAL_ID    = null;
-    this.lastResolve    = 0;
+
     
     this.getStage = function()
     {
@@ -38,12 +40,14 @@ var World = function( context, stage )
     {
         // TODO consider pausing all scheduled individual resolves...
         
-        this.lastResolve = timestamp;
         for( var territoryIndex in this.model.territories )
         {
-            var territoryM = this.model.territories[ territoryIndex ];
+            var territoryM      = this.model.territories[ territoryIndex ];
             territoryM.resolve( timestamp );
         }
+        
+        // update the timestamp of the last resolve.
+        this.lastResolve    = timestamp;
         
         // update the UI.
         this.ui.update();
@@ -66,9 +70,6 @@ var World = function( context, stage )
         // resolve for the last time to level all models to the same timestamp.
         var currentTimestamp    = new Date().getTime();
         GERMANIA.WORLD.resolve( currentTimestamp );
-        
-        // store the new timestamp.
-        this.lastResolve        = currentTimestamp;
         
         // from here, the game can be saved in a safe state.
     };

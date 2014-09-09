@@ -1,6 +1,6 @@
 "use strict";
 
-var WorldM = function( context )
+var WorldM = function( lastResolve, context )
 {
     this.territories    = {};
     
@@ -24,7 +24,7 @@ var WorldM = function( context )
         var territoryContext        = this.getTerritoryContext( name, context );
         
         // initialize the new territory instance.
-        var territory               = new TerritoryM( name );
+        var territory               = new TerritoryM( lastResolve, name );
         territory.init( territoryContext );
         
         this.territories[ name ]    = territory; 
