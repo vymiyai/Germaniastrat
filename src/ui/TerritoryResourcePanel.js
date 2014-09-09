@@ -36,7 +36,7 @@ var TerritoryResourcePanel = function()
         if( this.territoryModel !== null )
         {
             var resources   = this.territoryModel.getStatus().resources;
-            this.label.text = this.territoryModel.getName() + "\nFOOD " + resources.food + "\nAMMO " + resources.ammo + "\nFUEL " + resources.fuel;
+            this.label.text = this.territoryModel.getName() + "\nFOOD " + Math.ceil( resources.food ) + "\nAMMO " + Math.ceil( resources.ammo ) + "\nFUEL " + Math.ceil( resources.fuel );
         }
     };
     
