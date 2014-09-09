@@ -8,7 +8,7 @@ var World = function( context, stage )
     
     this.stage          = stage;
     this.ui             = new UI( this.stage );
-    this.model          = new WorldM( this.lastResolve, context );
+    this.model          = new WorldM( this, context );
     this.view           = new WorldV( this.model, this.stage );
     
     this.escave         = null;
@@ -47,6 +47,7 @@ var World = function( context, stage )
         }
         
         // update the timestamp of the last resolve.
+        //alert( timestamp );
         this.lastResolve    = timestamp;
         
         // update the UI.

@@ -1,7 +1,7 @@
 "use strict";
 
 // class that represents the data part of a territory to be presented in a map.
-var TerritoryM = function( lastResolve, name )
+var TerritoryM = function( world, name )
 {
     // static values.
     this.name           = name;
@@ -9,7 +9,7 @@ var TerritoryM = function( lastResolve, name )
     this.typeAttributes = GERMANIA.TERRITORY_TYPES[ this.attributes.type ];
     
     // dynamic values.
-    this.timestamp      = lastResolve;
+    this.world          = world;
     this.resources      = { food: 0, ammo: 0, fuel: 0 };
     
     // initializes this instance with an instance description.
@@ -23,7 +23,7 @@ var TerritoryM = function( lastResolve, name )
     this.resolve = function( timestamp )
     {
         // retrieve last timestamp.
-        var lastTimestamp = this.timestamp;
+        var lastTimestamp = this.world.lastResolve;
         
         // calculate the time passed since the last timestamp.
         var timePassed = timestamp - lastTimestamp;
