@@ -89,20 +89,41 @@
             // the x and y coordinates of the last mouse down event.
             var x = 0;
             var y = 0;
-            
-            // global variable that contains eveything...
-            //var stage = new createjs.Stage( "STAGE" );
-            //var GERMANIA = new Germania( stage );
-            var WORLD;
-            
-            if( true )
+            /*
+            GERMANIA.PROFILER.deleteProfile( "PROFILES" );
+            GERMANIA.PROFILER.deleteProfile( "PROFILE_0" );
+            GERMANIA.PROFILER.deleteProfile( "PROFILE_1" );
+            GERMANIA.PROFILER.deleteProfile( "PROFILE_2" );
+            */
+            // initialize the list of profiles if it still does not exist.
+            // initialize the default, new game profile if it still does not exist.
+            if( GERMANIA.PROFILER.loadProfile( "PROFILES" ) === null )
             {
+                GERMANIA.PROFILER.saveProfile( "PROFILES", [] );
+            }
+            
+            // initialize the default, new game profile if it still does not exist.
+            if( GERMANIA.PROFILER.loadProfile( "DEFAULT_PROFILE" ) === null )
+            {
+                var defaultProfile = {"AREA_0":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
+                    "AREA_1":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
+                    "AREA_2":{resources:{ food: 0, ammo: 0, fuel: 0 }},  
+                    "AREA_3":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
+                    "AREA_4":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
+                    "AREA_5":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
+                    "AREA_6":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
+                    "AREA_7":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
+                    "AREA_8":{resources:{ food: 0, ammo: 0, fuel: 0 }}};        
+                GERMANIA.PROFILER.saveProfile( "DEFAULT_PROFILE", defaultProfile );
+            }
+                
+                
                 // setup dummy profiles for the main menu.
                 //PROFILER.saveProfile( "PROFILE", {} );
                 //PROFILER.loadProfile( "PROFILE" ) )
                 //PROFILER.deleteProfile( "PROFILE" );
 
-/*
+                /*
                 var defaultProfile = {"AREA_0":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
                     "AREA_1":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
                     "AREA_2":{resources:{ food: 0, ammo: 0, fuel: 0 }},  
@@ -119,16 +140,7 @@
                 GERMANIA.PROFILER.saveProfile( "PROFILES", profiles );
                 */
                 /*
-                var defaultProfile = {"AREA_0":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_1":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_2":{resources:{ food: 0, ammo: 0, fuel: 0 }},  
-                    "AREA_3":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_4":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_5":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_6":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_7":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_8":{resources:{ food: 0, ammo: 0, fuel: 0 }}};        
-                GERMANIA.PROFILER.saveProfile( "DEFAULT_PROFILE", defaultProfile );
+
                 
                
                 var profiles = [ "PROFILE_0" ];
@@ -149,10 +161,6 @@
                 GERMANIA.PROFILER.deleteProfile( "PROFILE_2" );
                 GERMANIA.PROFILER.deleteProfile( "DEFAULT_PROFILE" );
                 */
-            }
-                
-                
-                
                 
                 
             

@@ -57,7 +57,7 @@ var MainMenu = function()
     
     // instantiate the load game button and level 2 if there is at least one saved profile.
     var profileList = GERMANIA.PROFILER.loadProfile( "PROFILES" );
-    if( profileList.length > 0 )
+    if( profileList !== null && profileList.length > 0 )
     {
         // instantiate the load game button.
         var loadGameButton  = new MainMenuButton( "LOAD GAME" );
