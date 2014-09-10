@@ -10,8 +10,7 @@ var WorldM = function( world, context )
     // returns the context of a specific territory.
     this.getTerritoryContext = function( name, context )
     {
-        // this.context[ name ]
-        return { timestamp: new Date().getTime(), resources: { food: 0, ammo: 0, fuel: 0 } };
+        return context[ name ];
         
         //var territoryContext = context.territories[ name ];
         //return { timestamp: context.timestamp, resources: { food: 0, ammo: 0, fuel: 0 } };

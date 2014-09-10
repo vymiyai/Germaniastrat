@@ -25,8 +25,8 @@ var ExitEscaveState = function( context )
                     
         // fade out the world by increasing the curtain's alpha.
         createjs.Tween.get( GERMANIA.CURTAIN )
-            .wait( 200 )
-            .to( { alpha:1 }, 1200 )
+            .wait( CONFIG.ESCAVE.CURTAIN.WAIT_TIME )
+            .to( { alpha:1 }, CONFIG.ESCAVE.CURTAIN.FADE_TIME )
             .call( callback );
     };
     

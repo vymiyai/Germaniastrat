@@ -80,8 +80,8 @@ var World = function( context, stage )
     {
         // fade in the main menu, send the curtain to the back and start the resolve routine.
         createjs.Tween.get( GERMANIA.CURTAIN )
-            .wait( 200 )
-            .to( { alpha:0 }, 1200 )
+            .wait( CONFIG.MAIN_MENU.CURTAIN.WAIT_TIME )
+            .to( { alpha:0 }, CONFIG.MAIN_MENU.CURTAIN.FADE_TIME )
             .call( function(){ GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 ); } )
             .call( this.startResolve, null, this );
     };

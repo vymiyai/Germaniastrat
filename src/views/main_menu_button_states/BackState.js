@@ -24,7 +24,7 @@ var BackState = function( context )
         
         // fade out the main menu's level 2.
         createjs.Tween.get( GERMANIA.MAIN_MENU.level2 )
-            .to( { alpha:0 }, 200, createjs.Ease.linear )
+            .to( { alpha:0 }, CONFIG.MAIN_MENU.BACK_MENU_TWEEN, createjs.Ease.linear )
             .call( onFadeOutFinished );
         
         // replace the new game and load game buttons' states with functional ones.
@@ -39,8 +39,8 @@ var BackState = function( context )
         
         // fade in the main menu's level 1.
         createjs.Tween.get( GERMANIA.MAIN_MENU.level1 )
-            .wait( 300 )
-            .to( { x:0, alpha:1 }, 200, createjs.Ease.linear )
+            .wait( CONFIG.MAIN_MENU.BACK_MENU_WAIT_TIME )
+            .to( { x:0, alpha:1 }, CONFIG.MAIN_MENU.BACK_MENU_TWEEN, createjs.Ease.linear )
             .call( onFadeInFinished );
     };
     

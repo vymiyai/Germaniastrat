@@ -13,6 +13,7 @@ var Escave = function()
     this.shape          = null;     // the container that contains the whole visual representation of this menu.
     this.background     = null;
     this.exitButton     = null;
+    this.saveButton     = null;
 
     // the main menu container.
     var container       = new createjs.Container();
@@ -36,14 +37,22 @@ var Escave = function()
     exitButton.setState( new ExitEscaveState( null ) );
     this.exitButton         = exitButton;
     this.shape.addChild( this.exitButton.getShape() );
+    
+    // instantiate the save game button.
+    var saveButton          = new MainMenuButton( "SAVE GAME" );
+    saveButton.getShape().x = CANVAS.width/2;
+    saveButton.getShape().y = CANVAS.height/2 + GERMANIA.CONFIG.BUTTON_HEIGHT;
+    saveButton.setState( new SaveGameButtonState( null ) );
+    this.saveButton         = saveButton;
+    this.shape.addChild( this.saveButton.getShape() );
 
     // calls the initial animation. TO THE ESCAVE YOU GO!
     this.start = function()
     {
         // fade in the main menu and send the curtain to the back.
         createjs.Tween.get( GERMANIA.CURTAIN )
-            .wait( 200 )
-            .to( { alpha:0 }, 1200 )
+            .wait( CONFIG.ESCAVE.CURTAIN.WAIT_TIME )
+            .to( { alpha:0 }, CONFIG.ESCAVE.CURTAIN.FADE_TIME )
             .call( function(){ GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 ); } );
     };
         
@@ -52,4 +61,9 @@ var Escave = function()
     {
         return this.shape;
     }
+    
+    this.init   = function()
+    {
+        
+    };
 };

@@ -12,8 +12,8 @@ var StartProfileState = function( context )
                     
         // fade out the main menu.
         createjs.Tween.get( GERMANIA.CURTAIN )
-            .wait( 200 )
-            .to( { alpha:1 }, 1200 );
+            .wait( CONFIG.MAIN_MENU.CURTAIN.WAIT_TIME )
+            .to( { alpha:1 }, CONFIG.MAIN_MENU.CURTAIN.FADE_TIME );
             
         // f@cking closure...
         var callback = function( ctx )
@@ -30,7 +30,7 @@ var StartProfileState = function( context )
                     
         // move the "camera" up, instantiate the world based on the given context and send curtain to background.
         createjs.Tween.get( GERMANIA.MAIN_MENU.getShape() )
-            .to( { y:stage.canvas.height }, 1500, createjs.Ease.quintInOut )
+            .to( { y:stage.canvas.height }, CONFIG.MAIN_MENU.CAMERA_TWEEN_TIME, createjs.Ease.quintInOut )
             .call( callback( this.context ) );
     };
     

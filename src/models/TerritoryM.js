@@ -27,7 +27,7 @@ var TerritoryM = function( world, name )
         
         // calculate the time passed since the last timestamp.
         var timePassed = timestamp - lastTimestamp;
-        var resourcesToBeAdded = timePassed/1000;
+        var resourcesToBeAdded = timePassed / CONFIG.RESOURCE_INCREASE_MODIFIER;
         
         
         // calculate the amount of each resources that was produced or consumed during this time period.
@@ -56,6 +56,12 @@ var TerritoryM = function( world, name )
     this.getAttributes = function()
     {
         return this.attributes;
+    };
+    
+    // returns the JSON representation of this territory.
+    this.toJson = function()
+    {
+        return JSON.stringify( this.resources );
     };
     
 };

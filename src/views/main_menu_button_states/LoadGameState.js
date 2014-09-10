@@ -21,7 +21,7 @@ var LoadGameState = function( context )
         
         // fade out the main menu's level 1.
         createjs.Tween.get( GERMANIA.MAIN_MENU.level1 )
-            .to( { x:-GERMANIA.CONFIG.BUTTON_WIDTH, alpha:0.3 }, 200, createjs.Ease.linear )
+            .to( { x:-GERMANIA.CONFIG.BUTTON_WIDTH, alpha:CONFIG.MAIN_MENU.LOAD_GAME_MENU_ALPHA }, CONFIG.MAIN_MENU.LOAD_GAME_MENU_TWEEN, createjs.Ease.linear )
             .call( onFadeOutFinished );
         
         var onFadeInFinished = function()
@@ -38,8 +38,8 @@ var LoadGameState = function( context )
         
         // fade in the main menu's level 2.
         createjs.Tween.get( GERMANIA.MAIN_MENU.level2 )
-            .wait( 200 )
-            .to( { alpha:1 }, 300, createjs.Ease.linear )
+            .wait( CONFIG.MAIN_MENU.LOAD_GAME_MENU_WAIT_TIME )
+            .to( { alpha:1 }, CONFIG.MAIN_MENU.LOAD_GAME_MENU_TWEEN, createjs.Ease.linear )
             .call( onFadeInFinished );
     };
     

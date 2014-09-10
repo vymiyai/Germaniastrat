@@ -104,18 +104,18 @@ var MainMenu = function()
     // calls the initial animation. GAME START!
     this.start = function()
     {
-        // bring curtain to front;
+        // bring curtain to front.
         GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 1 );
     
         // fade in the main menu and send the curtain to the back.
         createjs.Tween.get( GERMANIA.CURTAIN )
-            .wait( 200 )
-            .to( { alpha:0 }, 1200 )
+            .wait( CONFIG.MAIN_MENU.CURTAIN.WAIT_TIME )
+            .to( { alpha:0 }, CONFIG.MAIN_MENU.CURTAIN.FADE_TIME )
             .call( function(){ GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 ); } );
 
         // move the "camera" down.
         createjs.Tween.get( this.shape )
-            .to( { y:0 }, 1500, createjs.Ease.quintInOut );
+            .to( { y:0 }, CONFIG.MAIN_MENU.CAMERA_TWEEN_TIME, createjs.Ease.quintInOut );
     };
         
     // returns the visual representation of this menu.
