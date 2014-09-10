@@ -13,8 +13,6 @@ var World = function( context, stage )
     
     this.escave         = null;
     
-
-    
     this.getStage = function()
     {
         return this.stage;

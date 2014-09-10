@@ -10,12 +10,19 @@ var SaveProfileState = function( context )
         var decision = confirm( "Overwrite this profile?" );
         if ( decision == true ) 
         {
-            var x = "You pressed OK!";
-            alert( "SAVED SUCCESSFULLY" );
+            try
+            {
+                GERMANIA.PROFILER.saveProfile( this.context.profileName, GERMANIA.WORLD.model.toJson() );
+                alert( "SAVED SUCCESSFULLY" );
+            }
+            catch( error )
+            {
+                alert( "WARNING: an error occurred while saving your profile." );
+            }
         } 
         else 
         {
-            var x = "You pressed Cancel!";
+            // do nothing.
         } 
     };
     

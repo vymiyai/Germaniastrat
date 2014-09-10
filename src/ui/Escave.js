@@ -62,7 +62,7 @@ var Escave = function()
         return this.shape;
     }
     
-    this.init   = function()
+    this.init = function()
     {
         
     };

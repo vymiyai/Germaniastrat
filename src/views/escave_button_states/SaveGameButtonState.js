@@ -38,7 +38,7 @@ var SaveGameButtonState = function( context )
             var profileButton           = new MainMenuButton( profileName );
             profileButton.getShape().x  = CANVAS.width/2;
             profileButton.getShape().y  = CANVAS.height/2 + offset;
-            profileButton.setState( new SaveProfileState( context ) );
+            profileButton.setState( new SaveProfileState( { profileName: profileName } ) );
             container.addChild( profileButton.getShape() );
         }
         

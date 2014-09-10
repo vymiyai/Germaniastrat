@@ -61,7 +61,7 @@ var TerritoryM = function( world, name )
     // returns the JSON representation of this territory.
     this.toJson = function()
     {
-        return JSON.stringify( this.resources );
+        return { resources: this.resources };
     };
     
 };
