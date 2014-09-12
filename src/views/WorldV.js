@@ -4,12 +4,18 @@
 var WorldV = function( worldModel, stage )
 {
     this.stage          = stage;
+    this.shape          = null;
+    this.parentShape    = this.stage.getChildByName( "WORLD CONTAINER" );
     this.territories    = {};
+    
+    this.shape   = new createjs.Container();
+    this.shape.name  = "TERRITORY CONTAINER"
+    this.parentShape.addChild( this.shape );
     
     // adds a territory view object to this world view.
     this.addTerritory = function( territoryV )
     {
-        this.stage.getChildByName( "WORLD CONTAINER" ).addChild( territoryV );
+        this.shape.addChild( territoryV );
     };
     
     // add territories to the world container.
@@ -24,7 +30,15 @@ var WorldV = function( worldModel, stage )
     }
     
     // since this is the first time it is instantiated, centralize the "camera".
-    var container = this.stage.getChildByName( "WORLD CONTAINER" );
-    container.x =  ( GERMANIA.STAGE.canvas.width - CONFIG.BACKGROUND_WIDTH )/2;
-    container.y =  ( GERMANIA.STAGE.canvas.height - CONFIG.BACKGROUND_HEIGHT )/2;
+    var width       = GERMANIA.CONFIG.BACKGROUND_WIDTH;
+    var height      = GERMANIA.CONFIG.BACKGROUND_HEIGHT;
+    
+    this.shape.x    =  ( width - 600 )/2;
+    this.shape.y    =  ( height - 600 )/2;
+    
+    if( this.stage.canvas.width < width )
+        this.parentShape.x  = ( this.stage.canvas.width - width )/2;
+        
+    if( this.stage.canvas.height < height )
+        this.parentShape.y  = ( this.stage.canvas.height - height )/2;
 };

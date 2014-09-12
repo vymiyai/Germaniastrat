@@ -45,7 +45,6 @@ var World = function( context, stage )
         }
         
         // update the timestamp of the last resolve.
-        //alert( timestamp );
         this.lastResolve    = timestamp;
         
         // update the UI.
