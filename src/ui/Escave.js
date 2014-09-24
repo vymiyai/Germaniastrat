@@ -29,22 +29,22 @@ var Escave = function()
     background.on( "click", function( evt, data ){}, null, false );
     this.background     = background;
     this.shape.addChild( this.background );   
-
-    // instantiate the go to surface (exit) button.
-    var exitButton          = new MainMenuButton( "EXIT ESCAVE" );
-    exitButton.getShape().x = CANVAS.width/2;
-    exitButton.getShape().y = CANVAS.height/2;
-    exitButton.setState( new ExitEscaveState( null ) );
-    this.exitButton         = exitButton;
-    this.shape.addChild( this.exitButton.getShape() );
     
     // instantiate the save game button.
     var saveButton          = new MainMenuButton( "SAVE GAME" );
     saveButton.getShape().x = CANVAS.width/2;
-    saveButton.getShape().y = CANVAS.height/2 + GERMANIA.CONFIG.BUTTON_HEIGHT;
+    saveButton.getShape().y = CANVAS.height/2
     saveButton.setState( new SaveGameButtonState( null ) );
     this.saveButton         = saveButton;
     this.shape.addChild( this.saveButton.getShape() );
+    
+    // instantiate the go to surface (exit) button.
+    var exitButton          = new MainMenuButton( "EXIT ESCAVE" );
+    exitButton.getShape().x = CANVAS.width/2;
+    exitButton.getShape().y = CANVAS.height/2 + GERMANIA.CONFIG.BUTTON_HEIGHT;
+    exitButton.setState( new ExitEscaveState( null ) );
+    this.exitButton         = exitButton;
+    this.shape.addChild( this.exitButton.getShape() );
 
     // calls the initial animation. TO THE ESCAVE YOU GO!
     this.start = function()

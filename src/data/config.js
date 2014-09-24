@@ -1,5 +1,50 @@
 "use strict";
 
+/*
+    ALT W fecha a aplicacao...
+    
+    Wuerttemberg  = Heinrich Vollmer (Stg44, MG34)
+    
+    Allies:
+        Mauser
+        Valtion
+        Mannlicher
+        Steyr
+
+    ACT 1
+        Stuttgart - secure Wuerttemberg's capital and seize the industrial infrastructure!
+            vs Daimler
+                Engines for tanks and airplanes, Marder II, Mauser barrels
+    
+    ACT 2
+        vs Walther (1953)
+            Infantry
+        Friedrichshafen - key to victory, air power!
+            Zeppelin (WWI)
+            Dornier (Dorner Do 24 or X + MK 108) "We buy fuel from the Swiss fishermen. Such nice people!"
+            
+    ACT 3
+        vs None
+        Oberndorf - liberate the weapon's assembler.
+            Heckler & Koch
+            Mauser, introduction through Dornier's flying boats.
+            
+    ACT 3
+        Stuttgart - defend the capital!
+            vs Porsche
+                Ultra-heavy tanks, ultra-heavy tank destroyers
+                Porsche Tiger I and II, Elephant, Maus, Kübelwagen
+                
+    ACT 4
+        Karlsruhe - take Baden's capital!
+        
+    ACT 5
+        Secondary Objective: destroy de n AAA batteries around the city's perimeter.
+        Ludwigshafen (final mission)
+            vs poison gas BASF, Baden Aniline and Soda Factory
+                Chemical weapons, Nebelwerfer
+*/
+
 var CONFIG = {};
 
 // global.
@@ -8,8 +53,8 @@ CONFIG.RESOLVE_INTERVAL                     = 500;
 CONFIG.MAXIMUM_NUMBER_OF_PROFILES           = 3;
 
 // world menu configuratons.
-CONFIG.BUTTON_HEIGHT                        = 70;
-CONFIG.BUTTON_WIDTH                         = 120;
+CONFIG.BUTTON_HEIGHT                        = 100;
+CONFIG.BUTTON_WIDTH                         = 150;
 CONFIG.BUTTON_STROKE_COLOR                  = "DimGray";
 CONFIG.BUTTON_FILL_COLOR                    = "gray";
 CONFIG.BUTTON_LABEL_COLOR                   = "DimGray";

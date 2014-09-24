@@ -51,7 +51,7 @@ var MainMenu = function()
     var newGameButton   = new MainMenuButton( "NEW GAME" );
     newGameButton.getShape().x     = CANVAS.width/2;
     newGameButton.getShape().y     = CANVAS.height/2;
-    newGameButton.setState( new StartProfileState( defaultContext ) );
+    newGameButton.setState( new StartProfileState( defaultContext[ "ACT_1" ] ) );           // add the ACT 1 part of the default context.
     this.newGameButton  = newGameButton;
     this.level1.addChild( this.newGameButton.getShape() );
     
