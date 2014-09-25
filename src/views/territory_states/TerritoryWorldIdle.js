@@ -40,7 +40,9 @@ var TerritoryWorldIdle = function()
         if( this.shouldShowMenu )
         {
             // assign the territory resource panel with the "data" territory as a target.
-            GERMANIA.WORLD.getUI().getTerritoryResourcePanel().setReferencedTerritory( data.model );
+            var ui = GERMANIA.WORLD.getUI();
+            ui.getTerritoryResourcePanel().setReferencedTerritory( data.model );
+            ui.enterEscaveButton.setState( new EnterEscaveState( {"name":data.name} ) );
             GERMANIA.WORLD.resolve( new Date().getTime() );
             
             // summon world menu.

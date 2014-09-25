@@ -9,6 +9,7 @@ var Germania = function( stage )
     this.CONFIG             = CONFIG;
     this.TERRITORIES        = TERRITORIES;
     this.TERRITORY_TYPES    = TERRITORY_TYPES;
+    this.ACTS               = ACTS;
     
     // the global variables...
     this.STAGE      = stage;

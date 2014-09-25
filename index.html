@@ -12,6 +12,7 @@
 		<script src='src/data/cards.js'></script>
 		<script src='src/data/territories.js'></script>
 		<script src='src/data/territoryTypes.js'></script>
+		<script src='src/data/acts.js'></script>
 		<script src='src/data/config.js'></script>
 		
 		<script src='src/models/Battlegroup.js'></script>
@@ -115,72 +116,11 @@
                 GERMANIA.PROFILER.saveProfile( "PROFILES", [] );
             }
             
-            // initialize the default, new game profile if it still does not exist.
-            if( GERMANIA.PROFILER.loadProfile( "DEFAULT_PROFILE" ) === null )
-            {
-                // stores static content for new games.
-                var defaultProfile = { "ACT_1": {
-                                                    "AREA_0":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                                                    "AREA_1":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                                                    "AREA_2":{resources:{ food: 0, ammo: 0, fuel: 0 }},  
-                                                    "AREA_3":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                                                    "AREA_4":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                                                    "AREA_5":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                                                    "AREA_6":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                                                    "AREA_7":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                                                    "AREA_8":{resources:{ food: 0, ammo: 0, fuel: 0 }}
-                                                }
-                                    };        
-                GERMANIA.PROFILER.saveProfile( "DEFAULT_PROFILE", defaultProfile );
-            }
+            // setup dummy profiles for the main menu.
+            //PROFILER.saveProfile( "PROFILE", {} );
+            //PROFILER.loadProfile( "PROFILE" ) )
+            //PROFILER.deleteProfile( "PROFILE" );
                 
-                
-                // setup dummy profiles for the main menu.
-                //PROFILER.saveProfile( "PROFILE", {} );
-                //PROFILER.loadProfile( "PROFILE" ) )
-                //PROFILER.deleteProfile( "PROFILE" );
-
-                /*
-                var defaultProfile = {"AREA_0":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_1":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_2":{resources:{ food: 0, ammo: 0, fuel: 0 }},  
-                    "AREA_3":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_4":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_5":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_6":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_7":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_8":{resources:{ food: 0, ammo: 0, fuel: 0 }}};        
-                GERMANIA.PROFILER.saveProfile( "PROFILE_1", defaultProfile );
-                
-               
-                var profiles = [ "PROFILE_0", "PROFILE_1" ];
-                GERMANIA.PROFILER.saveProfile( "PROFILES", profiles );
-                */
-                /*
-
-                
-               
-                var profiles = [ "PROFILE_0" ];
-                GERMANIA.PROFILER.saveProfile( "PROFILES", profiles );
-                
-                var profile0 = {"AREA_0":{resources:{ food: 0, ammo: 0, fuel: 0 }}, 
-                    "AREA_1":{resources:{ food: 10, ammo: 10, fuel: 10 }}, 
-                    "AREA_2":{resources:{ food: 20, ammo: 20, fuel: 20 }}, 
-                    "AREA_3":{resources:{ food: 30, ammo: 30, fuel: 30 }}, 
-                    "AREA_4":{resources:{ food: 40, ammo: 40, fuel: 40 }}, 
-                    "AREA_5":{resources:{ food: 50, ammo: 50, fuel: 50 }}, 
-                    "AREA_6":{resources:{ food: 60, ammo: 60, fuel: 60 }}, 
-                    "AREA_7":{resources:{ food: 70, ammo: 70, fuel: 70 }}, 
-                    "AREA_8":{resources:{ food: 80, ammo: 80, fuel: 80 }}};
-                GERMANIA.PROFILER.saveProfile( "PROFILE_0", profile0 );
-                
-                GERMANIA.PROFILER.deleteProfile( "PROFILE_1" );
-                GERMANIA.PROFILER.deleteProfile( "PROFILE_2" );
-                GERMANIA.PROFILER.deleteProfile( "DEFAULT_PROFILE" );
-                */
-                
-                
-            
             var init = function() 
             {
                 // set desired FPS.

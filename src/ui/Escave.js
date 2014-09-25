@@ -62,8 +62,8 @@ var Escave = function()
         return this.shape;
     }
     
-    this.init = function()
+    this.init = function( name )
     {
-        
+        GERMANIA.WORLD.variables.LAST_ESCAVE = name;
     };
 };

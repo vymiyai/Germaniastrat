@@ -23,11 +23,10 @@ var SaveProfileState = function( context )
                 }
                 
                 // save the new profile.
-                GERMANIA.PROFILER.saveProfile( this.context.profileName, GERMANIA.WORLD.model.toJson() );
+                GERMANIA.PROFILER.saveProfile( this.context.profileName, GERMANIA.WORLD.toJson() );
                 alert( "SAVED SUCCESSFULLY" );
                 
                 // return to the Escave menu.
-                
                 var callback = function()
                 {
                     // bring curtain to the back.

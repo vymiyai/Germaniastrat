@@ -1,11 +1,11 @@
 "use strict";
 
 // class that represents the data part of a territory to be presented in a map.
-var TerritoryM = function( world, name )
+var TerritoryM = function( world, act, name )
 {
     // static values.
     this.name           = name;
-    this.attributes     = GERMANIA.TERRITORIES[ name ];
+    this.attributes     = GERMANIA.TERRITORIES[ act ][ name ];
     this.typeAttributes = GERMANIA.TERRITORY_TYPES[ this.attributes.type ];
     
     // dynamic values.

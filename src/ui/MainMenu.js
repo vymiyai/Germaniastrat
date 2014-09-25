@@ -47,11 +47,10 @@ var MainMenu = function()
     this.shape.addChild( this.level1 );
     
     // instantiate the new game button.
-    var defaultContext  = GERMANIA.PROFILER.loadProfile( "DEFAULT_PROFILE" );
     var newGameButton   = new MainMenuButton( "NEW GAME" );
     newGameButton.getShape().x     = CANVAS.width/2;
     newGameButton.getShape().y     = CANVAS.height/2;
-    newGameButton.setState( new StartProfileState( defaultContext[ "ACT_1" ] ) );           // add the ACT 1 part of the default context.
+    newGameButton.setState( new StartProfileState( GERMANIA.ACTS.ACT_1 ) );
     this.newGameButton  = newGameButton;
     this.level1.addChild( this.newGameButton.getShape() );
     

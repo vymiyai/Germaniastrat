@@ -4,7 +4,8 @@
 var World = function( context, stage )
 {
     this.INTERVAL_ID    = null;
-    this.lastResolve    = new Date().getTime();    
+    this.lastResolve    = new Date().getTime();
+    this.variables      = context.VARIABLES;
     
     this.stage          = stage;
     this.ui             = new UI( this.stage );
@@ -81,6 +82,14 @@ var World = function( context, stage )
             .to( { alpha:0 }, CONFIG.MAIN_MENU.CURTAIN.FADE_TIME )
             .call( function(){ GERMANIA.STAGE.setChildIndex( GERMANIA.CURTAIN, 0 ); } )
             .call( this.startResolve, null, this );
+    };
+    
+    this.toJson = function()
+    {
+        var result = {};
+        result.VARIABLES    = this.variables;
+        result.TERRITORIES  = this.model.toJson();
+        return result;
     };
     
     // WORLD START!

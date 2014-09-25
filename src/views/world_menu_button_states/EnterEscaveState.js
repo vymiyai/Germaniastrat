@@ -11,7 +11,7 @@ var EnterEscaveState = function( context )
         {
             // load Escave GUI.
             GERMANIA.WORLD.escave = new Escave();
-            GERMANIA.WORLD.escave.init( this.context );
+            GERMANIA.WORLD.escave.init( context.name );
             GERMANIA.STAGE.addChildAt( GERMANIA.WORLD.escave.getShape(), 1 );
             
             // start the entrance animation.
